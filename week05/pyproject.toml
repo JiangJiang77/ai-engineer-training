@@ -14,8 +14,13 @@ dependencies = [
     "langchain-mcp-adapters",
     "langchain-google-genai",
     "langchain-openai",
+    "fastapi",
     "fastapi-mcp",
     "langgraph",
+    "nest-asyncio",
     "tavily-python",
+    "uvicorn",
     "a2a-sdk",
+    "python-dotenv",
+    "google-generativeai",
 ]

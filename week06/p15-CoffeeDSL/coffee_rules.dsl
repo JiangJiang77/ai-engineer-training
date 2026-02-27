@@ -30,7 +30,7 @@ NODE temp_ready TYPE action
 # 简单的咖啡制作
 NODE make_coffee TYPE action
   DO START brewing
-  DO WAIT 20s
+  DO WAIT 40s
   DO STOP brewing
   DESCRIPTION "制作咖啡"
 

@@ -90,6 +90,7 @@ async def demo_model_client() -> None:
     # 而 autogen-ext 实现了一组用于流行模型服务的模型客户端。
     # AgentChat 可以使用这些模型客户端与模型服务进行交互。
     from autogen_core.models import UserMessage
+
     openai_model_client = _create_openai_client()
     try:
         result = await openai_model_client.create(
@@ -118,7 +119,9 @@ async def demo_messages() -> None:
     # 文本消息
     text_message = TextMessage(content="Hello, world!", source="User")
 
-    pil_image = Image.open(BytesIO(requests.get("https://picsum.photos/300/200").content))
+    pil_image = Image.open(
+        BytesIO(requests.get("https://picsum.photos/300/200").content)
+    )
     img = AGImage(pil_image)
 
     # 多模态消息
@@ -143,6 +146,7 @@ async def demo_assistant_agent() -> None:
 
     # AssistantAgent 是一个内置代理，它使用语言模型并且具有使用工具的能力。
     from autogen_agentchat.agents import AssistantAgent
+
     # Define a tool that searches the web for information.
     # For simplicity, we will use a mock function here that returns a static string.
     #
@@ -151,7 +155,8 @@ async def demo_assistant_agent() -> None:
     async def web_search(query: str) -> str:
         """Find information on the web"""
         print(f"web_search: {query}")
-        return "全球气候变化研究的最新进展是：气候变化是全球性的环境问题，需要全球各国共同努力应对。"
+        # return "全球气候变化研究的最新进展是：气候变化是全球性的环境问题，需要全球各国共同努力应对。"
+        return "hahaha 这是一条测试数据。"
 
     # Create an agent that uses the OpenAI GPT-4o model.
     model_client = _create_openai_client()
@@ -166,9 +171,12 @@ async def demo_assistant_agent() -> None:
     )
     try:
         # 使用 run() 方法来获取在给定任务上运行的代理。
-        result = await agent.run(task="请调用工具搜索并返回结果：全球气候变化研究的最新进展")
+        result = await agent.run(
+            task="请调用工具搜索并返回结果：全球气候变化研究的最新进展"
+        )
         print("==result.messages start==")
         print(result.messages)
+        print("content: ", result.messages[1].content)
         print("==result.messages end==")
     finally:
         await model_client.close()
@@ -178,10 +186,13 @@ async def demo_assistant_stream() -> None:
     # 流式输出消息
     from autogen_agentchat.agents import AssistantAgent
     from autogen_agentchat.ui import Console
+
     async def web_search(query: str) -> str:
         """Find information on the web"""
         print(f"web_search: {query}")
-        return "AutoGen is a programming framework for building multi-agent applications."
+        return (
+            "AutoGen is a programming framework for building multi-agent applications."
+        )
 
     model_client = _create_openai_client()
     agent = AssistantAgent(
@@ -282,6 +293,7 @@ async def demo_round_robin_stream() -> None:
     from autogen_agentchat.conditions import TextMentionTermination
     from autogen_agentchat.teams import RoundRobinGroupChat
     from autogen_agentchat.ui import Console
+
     model_client = _create_openai_client()
     primary_agent = AssistantAgent(
         name="primary",
@@ -314,16 +326,21 @@ async def demo_human_in_loop() -> None:
     from autogen_agentchat.conditions import TextMentionTermination
     from autogen_agentchat.teams import RoundRobinGroupChat
     from autogen_agentchat.ui import Console
+
     # Create the agents.
     model_client = _create_openai_client()
     assistant = AssistantAgent("assistant", model_client=model_client)
-    user_proxy = UserProxyAgent("user_proxy", input_func=input)  # Use input() to get user input from console.
+    user_proxy = UserProxyAgent(
+        "user_proxy", input_func=input
+    )  # Use input() to get user input from console.
 
     # Create the termination condition which will end the conversation when the user says "APPROVE".
     termination = TextMentionTermination("APPROVE")
 
     # Create the team.
-    team = RoundRobinGroupChat([assistant, user_proxy], termination_condition=termination, max_turns=10)
+    team = RoundRobinGroupChat(
+        [assistant, user_proxy], termination_condition=termination, max_turns=10
+    )
 
     # Run the conversation and stream to the console.
     stream = team.run_stream(task="Write a 4-line poem about the ocean.")
@@ -390,7 +407,10 @@ async def demo_swarm_refund() -> None:
 
     # 从 AutoGen 库中导入核心组件
     from autogen_agentchat.agents import AssistantAgent  # 助理智能体类
-    from autogen_agentchat.conditions import HandoffTermination, TextMentionTermination  # 终止条件
+    from autogen_agentchat.conditions import (
+        HandoffTermination,
+        TextMentionTermination,
+    )  # 终止条件
     from autogen_agentchat.messages import HandoffMessage  # 移交通知消息类
     from autogen_agentchat.teams import Swarm  # Swarm 团队类
     from autogen_agentchat.ui import Console  # 控制台输出工具
@@ -442,10 +462,11 @@ async def demo_swarm_refund() -> None:
     )
 
     # 定义团队的终止条件。满足任一条件时，团队停止运行。
-    termination = (
-        HandoffTermination(target="user")  # 当任务被移交给 "user" 时，流程暂停，等待用户输入
-        | TextMentionTermination("TERMINATE")  # 当任何消息中包含 "TERMINATE" 字样时，流程完全结束
-    )
+    termination = HandoffTermination(
+        target="user"
+    ) | TextMentionTermination(  # 当任务被移交给 "user" 时，流程暂停，等待用户输入
+        "TERMINATE"
+    )  # 当任何消息中包含 "TERMINATE" 字样时，流程完全结束
 
     # 创建 Swarm 团队，将两个代理组织起来，并指定终止条件。
     # 所有代理共享相同的消息上下文，发言顺序由最新的 HandoffMessage 决定。
@@ -465,7 +486,9 @@ async def demo_swarm_refund() -> None:
         last_message = task_result.messages[-1]
 
         # 循环检查：如果最后一条消息是发给 "user" 的 HandoffMessage，则需要用户输入
-        while isinstance(last_message, HandoffMessage) and last_message.target == "user":
+        while (
+            isinstance(last_message, HandoffMessage) and last_message.target == "user"
+        ):
             # 等待用户在命令行中输入回复
             user_message = input("用户: ")
 

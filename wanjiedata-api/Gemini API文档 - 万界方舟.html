@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://fangzhou.wanjiedata.com/model-doc/1990976196986474498 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="icon" type="image/svg+xml" href="https://fangzhou.wanjiedata.com/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,no-store">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name="description" content="开发文档与 API 参考 - 万界方舟,万界方舟开发者中心。提供详尽的聚合 API 接入指南、多语言 SDK 与代码示例，助您在分钟级内完成全球顶尖大模型的集成。">
+    <title>API文档 - 万界方舟</title>
+    <script type="module" crossorigin="" src="./Gemini API文档 - 万界方舟_files/index-CCO7CSfV.js"></script>
+    <link rel="stylesheet" crossorigin="" href="./Gemini API文档 - 万界方舟_files/index-CYMg-IVt.css">
+  <link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/Doc-B1s_w1om.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/index-CF9Dg5nJ.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/error-BuVrAUnG.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/warning-triangle-DPa89w7j.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/model-fuB0P9uE.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/data-DOtDIaBD.js"><link rel="stylesheet" crossorigin="" href="./Gemini API文档 - 万界方舟_files/Doc-BMR65WUy.css"></head>
+  <body>
+    <div id="app" data-v-app=""><div data-v-9eddef4e="" data-v-b0300626="" class="min-h-screen pt-[65px] md:pt-[72px]"><header data-v-9eddef4e="" class="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 fixed w-full z-4 top-[0] h-[65px] md:h-[72px]"><div class="flex items-center justify-between"><div class="flex items-center space-x-2"><img src="./Gemini API文档 - 万界方舟_files/logo-BedSVznW.png" alt="logo" class="h-8 cursor-pointer"></div><div class="flex items-center space-x-2 sm:space-x-4"><!----><!----><div class="flex items-center space-x-2"><span genarrowbyhtml="true"><div class="tiny-popover tiny-popper bg-white !p-2 border-gray-200 text-gray-700 w-54" role="tooltip" id="tiny-popover-5014" tabindex="0" style="display: none;"><!--v-if--><div class="py-3"><span class="font-bold text-gray-800">18268864093</span></div><div class="bg-gray-100 p-2 mb-2 flex items-center justify-between gap-2"><div class="text-gray-600 text-xs"><p class="mb-2">余额:</p><p class="text-gray-900">¥0</p></div><div class="cursor-pointer text-blue-500 text-xs">去充值</div></div><div class="tiny-divider tiny-divider--horizontal" style="height: auto; margin: 16px 0px; font-size: 14px;"><div class="tiny-divider-line tiny-divider--default" style="border-top-style: solid;"></div><!--v-if--></div><div class="cursor-pointer text-center py-3 text-xs text-gray-700 hover:bg-gray-50 hover:text-blue-700"> 个人中心 </div><div class="cursor-pointer text-center py-3 text-xs text-gray-800 hover:bg-gray-50 hover:text-blue-700"> 退出登录 </div></div><span class="reference-wrapper"><div class="!flex items-center space-x-2 flex-nowrap tiny-popover__reference" aria-describedby="tiny-popover-5014" tabindex="0"><div class="tiny-user-head w-8 h-8 cursor-pointer" size="40"><div class="tiny-user-head__portrait min round image" style="fill: rgb(255, 255, 255); color: rgb(255, 255, 255); background-color: rgb(181, 187, 193); background-image: url(&quot;/png/useravatar-C6sNEuBX.png&quot;);"><!--v-if--><!--v-if--></div><!--v-if--></div><span class="hidden sm:block text-gray-900 cursor-pointer">18268864093</span></div></span></span></div></div></div></header><div data-v-9eddef4e="" class="h-[calc(100vh-65px)] md:h-[calc(100vh-72px)] p-4 md:p-[24px]"><div data-v-9eddef4e="" class="overview-container"><div data-v-9eddef4e="" class="w-full md:flex-1 min-w-[0] px-6 md:px-12 pb-10"><div data-v-9eddef4e="" class="markdown-body hljs"><h1 id="i08gvwm7ns59i7bu35em9h5" class="heading-1">Gemini API 接口</h1><p>该模型适配于 Gemini 端侧接口标准</p>
+<p>Base Url： <a target="_blank" href="https://maas-openapi.wanjiedata.com/api">https://maas-openapi.wanjiedata.com/api</a></p>
+<p>获取 <a target="_blank" href="https://www.wjark.com/center/api-key">API KEY</a>：<a target="_blank" href="https://www.wjark.com/center/api-key">https://www.wjark.com/center/api-key</a></p>
+<ul>
+<li><a target="_blank" href="https://docs.wjark.com/maas/UserGuide/Usage/Google.html">Gemini 端侧接口标准适配模型一览表</a>：<a target="_blank" href="https://docs.wjark.com/maas/UserGuide/Usage/Google.html">https://docs.wjark.com/maas/UserGuide/Usage/Google.html</a></li>
+</ul>
+<h2 id="czuobmoy7n4kepyhxz6b5l" class="heading-2">基础文本对话</h2><p><strong>模型：gemini-2.5-flash-lite</strong></p>
+<p><strong>流式接口示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-attribute">POST</span> /v1beta/models/gemini-<span class="hljs-number">2</span>.<span class="hljs-number">5</span>-flash-lite:generateContent?alt=sse</code></pre>
+</code></pre><p><strong>流式请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-keyword">export</span> API_KEY=<span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+<span class="hljs-keyword">export</span> MODEL=<span class="hljs-string">"gemini-2.5-flash-lite"</span>
+curl <span class="hljs-comment">--location 'https://maas-openapi.wanjiedata.com/api/v1beta/models/gemini-2.5-flash-lite:generateContent?alt=sse' \</span>
+<span class="hljs-comment">--header 'Content-Type: application/json' \</span>
+<span class="hljs-comment">--header 'Authorization: $API_KEY' \</span>
+<span class="hljs-comment">--data '{</span>
+    <span class="hljs-string">"contents"</span>: [
+        {
+            <span class="hljs-string">"parts"</span>: [
+                {
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"你好"</span>
+                }
+            ]
+        }
+    ]
+}<span class="hljs-string">'</span></code></pre>
+</code></pre><p><strong>流式响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    "candidates": 
+        {
+            "<span class="hljs-attribute">content</span>": {
+                "parts": [
+                    {
+                        "<span class="hljs-selector-tag">text</span>": <span class="hljs-string">"你好！很高兴为你"</span>
+                    }
+                ],
+                "role": <span class="hljs-string">"model"</span>
+            },
+            "index": <span class="hljs-number">0</span>
+        },
+    "modelVersion": <span class="hljs-string">"gemini-2.5-flash-lite"</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        "candidatesTokenCount": <span class="hljs-number">5</span>,
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                "modality": <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">2</span>
+            }
+        ],
+        "thoughtsTokenCount": <span class="hljs-number">0</span>,
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">7</span>
+        }
+}</code></pre>
+</code></pre><p><strong>非流式接口示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-attribute">POST</span> /v1beta/models/gemini-<span class="hljs-number">2</span>.<span class="hljs-number">5</span>-flash-lite:generateContent</code></pre>
+</code></pre><p><strong>非流式请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-keyword">export</span> API_KEY=<span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+<span class="hljs-keyword">export</span> MODEL=<span class="hljs-string">"gemini-2.5-flash-lite"</span>
+curl <span class="hljs-comment">--location 'https://maas-openapi.wanjiedata.com/api/v1beta/models/gemini-2.5-flash-lite:generateContent' \</span>
+<span class="hljs-comment">--header 'Content-Type: application/json' \</span>
+<span class="hljs-comment">--header 'Authorization: $API_KEY' \</span>
+<span class="hljs-comment">--data '{</span>
+    <span class="hljs-string">"contents"</span>: [
+        {
+            <span class="hljs-string">"parts"</span>: [
+                {
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"你好"</span>
+                }
+            ]
+        }
+    ]
+}<span class="hljs-string">'</span></code></pre>
+</code></pre><p><strong>非流式响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span>: 
+        {
+            <span class="hljs-string">"content"</span>: {
+                <span class="hljs-string">"parts"</span>: [
+                    {
+                        <span class="hljs-string">"text"</span>: <span class="hljs-string">"你好！很高兴能与你交流。<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>请问有什么可以帮你的吗？你可以随时向我提问、寻求建议，或者只是随便聊聊。"</span>
+                    }
+                ],
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"model"</span>
+            },
+            <span class="hljs-string">"finishReason"</span>: <span class="hljs-string">"STOP"</span>,
+            <span class="hljs-string">"index"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>
+        },
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"gemini-2.5-pro"</span>,
+    <span class="hljs-string">"promptFeedback"</span>: {
+        <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        <span class="hljs-string">"candidatesTokenCount"</span>: <span class="hljs-number">34</span>,
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">2</span>
+            }
+        ],
+        <span class="hljs-string">"thoughtsTokenCount"</span>: <span class="hljs-number">1642</span>,
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">1678</span>
+        }
+    }
+}</code></pre>
+</code></pre><p><mark>gemini 系列其他模型同样支持以上请求，如 gemini-2.5-pro、gemini-2.5-flash ；使用时需要将 URL 、model 里的模型名称换成目标模型。</mark></p>
+<h2 id="jsvte4nccrr8gqm3vk5iq54" class="heading-2">图像分析对话</h2><p><strong>模型：gemini-2.5-flash-image-preview</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-attribute">POST</span> /v1beta/models/gemini-<span class="hljs-number">2</span>.<span class="hljs-number">5</span>-flash-image-preview:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-2.5-flash-image-preview</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--data</span> '{
+{
+  <span class="hljs-string">"contents"</span>: [
+    {
+      <span class="hljs-string">"parts"</span>: [
+        {
+          <span class="hljs-string">"text"</span>: <span class="hljs-string">"告诉我这张图片里有什么"</span>
+        },
+        {
+          <span class="hljs-string">"inline_data"</span>: {
+            <span class="hljs-string">"mime_type"</span>: <span class="hljs-string">"image/jpeg"</span>,
+            <span class="hljs-string">"data"</span>: <span class="hljs-string">"$(cat "</span>$TEMP_B64<span class="hljs-string">")"</span>
+          }
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span>: 
+        {
+            <span class="hljs-string">"content"</span>: {
+                <span class="hljs-string">"parts"</span>: [
+                    {
+                        <span class="hljs-string">"text"</span>: <span class="hljs-string">"这张图片中有一个恐怖的生物头部，它的特征如下：<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>*   **头颅和面部**：头颅呈苍白色，表面有类似血管或神经的凸起纹路，看起来像是腐烂或变异的组织。面部肌肉和皮肤暴露在外，呈紫红色，有明显的撕裂感。<span class="hljs-char escape_">\n</span>*   **眼睛**：眼睛很大，呈黄色，瞳孔是黑色的，散发着凶恶的光芒，显得非常警惕和威胁。<span class="hljs-char escape_">\n</span>*   **嘴巴和牙齿**：嘴巴张开，露出尖锐的白色牙齿，像食肉动物的利齿，非常具有攻击性。<span class="hljs-char escape_">\n</span>*   **头发/触手**：头部上方和两侧有许多扭曲、缠绕的藤蔓或触手状结构，颜色较深，与周围环境融为一体。<span class="hljs-char escape_">\n</span>*   **背景和前景**：背景黑暗模糊，给人一种深邃、幽暗的感觉。前景中散布着一些扭曲的树枝或根系，仿佛这个生物是从地下或森林深处出现。<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>整体而言，这是一张非常哥特式和恐怖风格的艺术作品，描绘了一个扭曲、怪异的怪物形象。"</span>
+                    }
+                ],
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"model"</span>
+            },
+            <span class="hljs-string">"finishReason"</span>: <span class="hljs-string">"STOP"</span>,
+            <span class="hljs-string">"index"</span>: <span class="hljs-number">0</span>
+        },
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"gemini-2.5-flash-image-preview"</span>,
+    <span class="hljs-string">"modelVersion"</span>: <span class="hljs-string">"gemini-2.5-flash-image-preview"</span>,
+    <span class="hljs-string">"responseId"</span>: <span class="hljs-string">"DwDZaLeSPP-UjMcP_5SP4QM"</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        <span class="hljs-string">"candidatesTokenCount"</span>: <span class="hljs-number">259</span>,
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">1296</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">6</span>
+            },
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"IMAGE"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">1290</span>
+            }
+        ],
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">1555</span>
+        }
+}
+</code></pre>
+</code></pre><h2 id="tmrma6rgq80bia6pf9qe589" class="heading-2">文字生成图片</h2><p><strong>模型：gemini-3-pro-image-preview</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST /v1beta/models/gemini-3-pro-image-preview:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> <span class="hljs-params">--request</span> POST 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-3-pro-image-preview</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data-raw</span> '{
+    <span class="hljs-string">"contents"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"parts"</span>: [
+                {
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"输入生成图片要求"</span>
+                }
+            ]
+        }
+    ]
+}'</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-comment">"candidates"</span>: [
+        {
+            <span class="hljs-comment">"content"</span>: {
+                <span class="hljs-comment">"parts"</span>: [
+                    {
+                        <span class="hljs-comment">"text"</span>: <span class="hljs-comment">"**Contemplating the Discovery**\n\nI'm imagining a group of explorers stumbling upon a lost city deep in the jungle. I'm focusing on their reactions, the play of sunlight, and the details of the ancient structures and environment. I'm considering the tools they'd be using and the scene's composition.\n\n\n"</span>,<span class="hljs-comment">"thought"</span>: <span class="hljs-keyword">true</span>
+                    }, 
+                    ...
+                     {
+                        <span class="hljs-comment">"inlineData"</span>: {
+                            <span class="hljs-comment">"data"</span>: <span class="hljs-comment">"iVBORw0KGgoAAAANSUhEUgAABYAAAAMACAIAAAASU1SbAAAAiXpUWHRSYXcgcHJvZmls.....
+                            ...wEu+rsw3H7JLY+7jS9q60Lqw8lzhnfpGMfCPvocD/tat/259EXC/F2e30mpqA+w28Hf2aiV/6ehU3sEgUYr96ZSCdIKC/vYFtkkC7dBnyPqMVP8TYbEPvMiCD1"</span>
+                    }
+                ],
+                <span class="hljs-comment">"role"</span>: <span class="hljs-comment">"model"</span>
+            },
+            <span class="hljs-comment">"finishReason"</span>: <span class="hljs-comment">"STOP"</span>
+        }
+    ],
+    <span class="hljs-comment">"createTime"</span>: <span class="hljs-comment">"2025-12-04T09:54:26.137486Z"</span>,
+    <span class="hljs-comment">"model"</span>: <span class="hljs-comment">"gemini-3-pro-image-preview"</span>,
+    <span class="hljs-comment">"modelVersion"</span>: <span class="hljs-comment">"gemini-3-pro-image-preview"</span>,
+    <span class="hljs-comment">"responseId"</span>: <span class="hljs-comment">"UloxaY6yCIq4694Pi-TTmAk"</span>,
+    <span class="hljs-comment">"usageMetadata"</span>: {
+        <span class="hljs-comment">"candidatesTokenCount"</span>: <span class="hljs-number">1120</span>,
+        <span class="hljs-comment">"candidatesTokensDetails"</span>: [
+            {
+                <span class="hljs-comment">"modality"</span>: <span class="hljs-comment">"IMAGE"</span>,
+                <span class="hljs-comment">"tokenCount"</span>: <span class="hljs-number">1120</span>
+            }
+        ],
+        <span class="hljs-comment">"promptTokenCount"</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-comment">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-comment">"modality"</span>: <span class="hljs-comment">"TEXT"</span>,
+                <span class="hljs-comment">"tokenCount"</span>: <span class="hljs-number">5</span>
+            }
+        ],
+        <span class="hljs-comment">"thoughtsTokenCount"</span>: <span class="hljs-number">155</span>,
+        <span class="hljs-comment">"totalTokenCount"</span>: <span class="hljs-number">1280</span>,
+        <span class="hljs-comment">"trafficType"</span>: <span class="hljs-comment">"ON_DEMAND"</span>
+    }
+}</code></pre>
+</code></pre><h2 id="sg0isyv6ki45imzmmfojirr" class="heading-2">图片编辑</h2><p><strong>模型：gemini-3-pro-image-preview</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST /v1beta/models/gemini-3-pro-image-preview:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> <span class="hljs-params">--request</span> POST 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-3-pro-image-preview</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data-raw</span> '{
+    <span class="hljs-string">"contents"</span>: [
+        {
+            <span class="hljs-string">"parts"</span>: [
+                {
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"$输入你的想法"</span>
+                },
+                {
+                    <span class="hljs-string">"inline_data"</span>: {
+                        <span class="hljs-string">"mime_type"</span>: <span class="hljs-string">"image/jpeg"</span>,
+                        <span class="hljs-string">"data"</span>: <span class="hljs-string">"$图片 base64"</span>
+                    }
+                }
+            ]
+        }
+    ]
+}'</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span><span class="hljs-punctuation">:</span> [
+        {
+            <span class="hljs-string">"content"</span><span class="hljs-punctuation">:</span> {
+                <span class="hljs-string">"parts"</span><span class="hljs-punctuation">:</span> [
+                    {
+                        <span class="hljs-string">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"![image](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABYAAAAMACAIAAAASU1SbAAAAiXpUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAAiZTYwxDgIxDAT7vOKekDjrtV1T0VHwgbtcIiEhgfh/QaDgmGlWW0w6X66n5fl6jNu9p</span>
+                        ...
+                        ...
+                        ...
+                        MB4E4LHFlHO/n9xbX6GDMkLigAAAABJRU5ErkJggg<span class="hljs-punctuation">=</span><span class="hljs-punctuation">=</span><span class="hljs-punctuation">)</span><span class="hljs-string">"</span>
+                    }
+                ]<span class="hljs-punctuation">,</span>
+                <span class="hljs-string">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"model"</span>
+            }<span class="hljs-punctuation">,</span>
+            <span class="hljs-string">"finishReason"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"STOP"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-string">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-string">"safetyRatings"</span><span class="hljs-punctuation">:</span> []
+        }
+    ]<span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"model"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"gemini-3-pro-image-preview"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"usageMetadata"</span><span class="hljs-punctuation">:</span> {
+        <span class="hljs-string">"candidatesTokenCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1352</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"promptTokenCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1085</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"promptTokensDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal">null</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"thoughtsTokenCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"totalTokenCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2437</span>
+    }
+}</code></pre>
+</code></pre><h2 id="o9qdqazlz1h2ukrd6mdsiq" class="heading-2">音频处理</h2><p><strong>模型：gemini-2.5-pro</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-attribute">POST</span> /v1beta/models/gemini-<span class="hljs-number">2</span>.<span class="hljs-number">5</span>-pro:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-2.5-pro</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--data</span> '{
+  <span class="hljs-string">"contents"</span>: [
+    {
+      <span class="hljs-string">"parts"</span>: [
+        {
+          <span class="hljs-string">"text"</span>: <span class="hljs-string">"这个音频文件描述了什么"</span>
+        },
+        {
+          <span class="hljs-string">"inline_data"</span>: {
+            <span class="hljs-string">"mime_type"</span>: <span class="hljs-string">"audio/mpeg"</span>,
+            <span class="hljs-string">"data"</span>: <span class="hljs-string">"'$AUDIO_B64'"</span>
+          }
+        }
+      ]
+    }
+  ]
+}'</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span>: 
+        {
+            <span class="hljs-string">"content"</span>: {
+                <span class="hljs-string">"parts"</span>: [
+                    {
+                        <span class="hljs-string">"text"</span>: <span class="hljs-string">"这个音频文件里，一个清晰的女声说了一句话：<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>**“两只老虎爱跳舞” (liǎng zhī lǎo hǔ ài tiào wǔ)**<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>这句话的意思是 **<span class="hljs-char escape_">\"</span>Two tigers love to dance<span class="hljs-char escape_">\"</span>**。<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>这是一个充满童趣和想象力的描述，通常出现在儿童歌曲、故事或者可爱的动画场景中。它改编自中国家喻户晓的儿歌《两只老虎》。"</span>
+                    }
+                ],
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"model"</span>
+            },
+            <span class="hljs-string">"finishReason"</span>: <span class="hljs-string">"STOP"</span>,
+            <span class="hljs-string">"index"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>
+        },
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"gemini-2.5-pro"</span>,
+    <span class="hljs-string">"promptFeedback"</span>: {
+        <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        <span class="hljs-string">"candidatesTokenCount"</span>: <span class="hljs-number">91</span>,
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">62</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">7</span>
+            },
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"AUDIO"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">55</span>
+            }
+        ],
+        <span class="hljs-string">"thoughtsTokenCount"</span>: <span class="hljs-number">1199</span>,
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">1352</span>
+        }
+}
+}</code></pre>
+</code></pre><h2 id="o9m4qdvh13m97x9thqg6nbr" class="heading-2">PDF 处理</h2><p><strong>模型：gemini-2.5-pro</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-attribute">POST</span> api/v1beta/models/gemini-<span class="hljs-number">2</span>.<span class="hljs-number">5</span>-pro:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-2.5-pro</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--data</span> '{
+  <span class="hljs-string">"contents"</span>: [
+    {
+      <span class="hljs-string">"parts"</span>: [
+        {
+          <span class="hljs-string">"text"</span>: <span class="hljs-string">"Can you add a few more lines to this poem?"</span>
+        },
+        {
+          <span class="hljs-string">"inline_data"</span>: {
+            <span class="hljs-string">"mime_type"</span>: <span class="hljs-string">"application/pdf"</span>,
+            <span class="hljs-string">"data"</span>: <span class="hljs-string">"'$PDF_B64'"</span>}}
+      ]
+    }]
+  }'</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span>: 
+        {
+            <span class="hljs-string">"content"</span>: {
+                <span class="hljs-string">"parts"</span>: [
+                    {
+                        <span class="hljs-string">"text"</span>: <span class="hljs-string">"Of course! While this appears to be the user manual for the <span class="hljs-char escape_">\"</span>云帆 (Cloud Sail) Learning and Examination System,<span class="hljs-char escape_">\"</span> the name itself is quite poetic. Let's add a few lines inspired by the journey of learning outlined in the manual.<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>Here are a few additions, in the spirit of a modern poem:<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>**云帆学习考试系统**<span class="hljs-char escape_">\n</span>**用户手册**<span class="hljs-char escape_">\n</span>**（用户端）**<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>知识之海，无远弗届，<span class="hljs-char escape_">\n</span>数据为舟，代码作帆。<span class="hljs-char escape_">\n</span>人脸识别，映求知之容，<span class="hljs-char escape_">\n</span>切屏交卷，记专注瞬间。<span class="hljs-char escape_">\n</span>指尖轻点，星辰入梦，<span class="hljs-char escape_">\n</span>终有一日，证书在手，破浪云帆。<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>---<span class="hljs-char escape_">\n</span>***Translation:***<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>***Cloud Sail Learning Examination System***<span class="hljs-char escape_">\n</span>***User Manual***<span class="hljs-char escape_">\n</span>***(User End)***<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>*The sea of knowledge, reaching beyond horizons,*<span class="hljs-char escape_">\n</span>*Data is the boat, code the sail.*<span class="hljs-char escape_">\n</span>*Facial recognition reflects the countenance of a seeker,*<span class="hljs-char escape_">\n</span>*Switching screens submits the exam, marking a moment of focus.*<span class="hljs-char escape_">\n</span>*With a light tap of a finger, stars enter the dream,*<span class="hljs-char escape_">\n</span>*Until one day, with certificate in hand, you break the waves on a cloud sail.*"</span>
+                    }
+                ],
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"model"</span>
+            },
+            <span class="hljs-string">"finishReason"</span>: <span class="hljs-string">"STOP"</span>,
+            <span class="hljs-string">"index"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>
+        },
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"gemini-2.5-pro"</span>,
+    <span class="hljs-string">"promptFeedback"</span>: {
+        <span class="hljs-string">"safetyRatings"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        <span class="hljs-string">"candidatesTokenCount"</span>: <span class="hljs-number">261</span>,
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">35100</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">12</span>
+            },
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"DOCUMENT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">35088</span>
+            }
+        ],
+        <span class="hljs-string">"thoughtsTokenCount"</span>: <span class="hljs-number">1032</span>,
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">36393</span>
+        }
+}
+}</code></pre>
+</code></pre><h2 id="uyo0qfzzpgorcacnql0l985" class="heading-2">视频分析</h2><p><strong>模型：gemini-3-flash-preview</strong></p>
+<p><strong>接口示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST /v1beta/models/gemini-3-flash-preview:generateContent</code></pre>
+</code></pre><p><strong>请求示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1beta/models/gemini-3-flash-preview</span><span class="hljs-function">:generateContent</span>' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--header</span> 'Authorization: $API_KEY' \
+<span class="hljs-params">--data</span> '{
+    <span class="hljs-string">"contents"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"parts"</span>: [
+                {
+                    <span class="hljs-string">"fileData"</span>: {
+                        <span class="hljs-string">"mimeType"</span>: <span class="hljs-string">"video/mp4"</span>,
+                        <span class="hljs-string">"fileUri"</span>: <span class="hljs-string">"$上传视频URL"</span>
+                    }
+                },
+                {
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"视频分析关键词"</span>
+                }
+            ]
+        }
+    ]
+}'</code></pre>
+</code></pre><p><strong>响应示例：</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"candidates"</span>: [
+        {
+            <span class="hljs-string">"content"</span>: {
+                <span class="hljs-string">"parts"</span>: [
+                    {
+                        <span class="hljs-string">"text"</span>: <span class="hljs-string">"这段视频展示了一个宏大的科幻场景，视角位于一艘大型宇宙飞船的背部甲板，正对着前方的深空。以下是逐帧分析：<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>*   **00:00 - 00:01**：画面开始，展示了飞船精细的金属甲板结构和中央高耸的垂直塔楼。背景是漆黑的太空，散布着繁星。在右侧，可以看到一个明亮的蓝色环状能量场，伴随着流动的电光效果。<span class="hljs-char escape_">\n</span>*   **00:02 - 00:03**：在飞船左侧偏上的位置，突然出现了一团极其耀眼的白蓝色强光。这道光迅速扩大，产生了明显的镜头光晕（Lens Flare）效果，遮挡了部分星空。<span class="hljs-char escape_">\n</span>*   **00:04 - 00:05**：光晕效果达到顶峰。这团强光看起来像是一个近距离的恒星爆发或者是飞船正在接近某种高能反应堆。此时，右侧原本清晰的能量环变得更加弥散，化作一片幽蓝色的星云状光影。<span class="hljs-char escape_">\n</span>*   **00:06 - 00:07**：左侧的强光开始逐渐收敛和减弱，不再刺眼，转而变成了一片柔和的蓝色弧光。飞船甲板上的金属质感在光影变化下显得非常有深度和真实感。<span class="hljs-char escape_">\n</span>*   **00:08 - 00:09**：画面趋于平稳。刺眼的强光几乎消失，只在中央塔楼后方留下淡淡的蓝色余晖。背景中的紫色和蓝色星云更加清晰可见，飞船在静谧而深邃的宇宙中缓缓前行（或停驻）。<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>**总结：**<span class="hljs-char escape_">\n</span>这段视频通过光影的剧烈变化，营造出一种宇宙飞船在深空中遭遇某种高能天文现象或开启能量推进系统的视觉冲击感。整体色调以冷峻的灰金属色和迷幻的深蓝色为主，充满了未来感。"</span>,
+                        <span class="hljs-string">"thoughtSignature"</span>: <span class="hljs-string">"Cs0ZAY89a1/XI2qb/.../EgVZOx5yZfBlhT0OATWzj1F4KAa3VQFqidLfwSkV0cV22tDZe4+K4Ib0hrEY1fXcC5bZeiPx29XY+kDdIbkxA3JiczV5RlcrcRO19lYsKNPEw=="</span>
+                    }
+                ],
+                <span class="hljs-string">"role"</span>: <span class="hljs-string">"model"</span>
+            },
+            <span class="hljs-string">"finishReason"</span>: <span class="hljs-string">"STOP"</span>
+        }
+    ],
+    <span class="hljs-string">"createTime"</span>: <span class="hljs-string">"2025-12-25T10:37:51.797389Z"</span>,
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"gemini-3-flash-preview"</span>,
+    <span class="hljs-string">"modelVersion"</span>: <span class="hljs-string">"gemini-3-flash-preview"</span>,
+    <span class="hljs-string">"responseId"</span>: <span class="hljs-string">"_xNNac3VMJvfz7sP5aW16Qs"</span>,
+    <span class="hljs-string">"usageMetadata"</span>: {
+        <span class="hljs-string">"candidatesTokenCount"</span>: <span class="hljs-number">444</span>,
+        <span class="hljs-string">"candidatesTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">444</span>
+            }
+        ],
+        <span class="hljs-string">"promptTokenCount"</span>: <span class="hljs-number">648</span>,
+        <span class="hljs-string">"promptTokensDetails"</span>: [
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"TEXT"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">8</span>
+            },
+            {
+                <span class="hljs-string">"modality"</span>: <span class="hljs-string">"VIDEO"</span>,
+                <span class="hljs-string">"tokenCount"</span>: <span class="hljs-number">640</span>
+            }
+        ],
+        <span class="hljs-string">"thoughtsTokenCount"</span>: <span class="hljs-number">849</span>,
+        <span class="hljs-string">"totalTokenCount"</span>: <span class="hljs-number">1941</span>,
+        <span class="hljs-string">"trafficType"</span>: <span class="hljs-string">"ON_DEMAND"</span>
+    }
+}</code></pre>
+</code></pre><h1 id="n04kv4vy00e7d70fafvdrh89" class="heading-1">Gemini 端侧接口标准适配模型在客户端的应用</h1><p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGemini/GeminiCherryStudio.html">在 Cherry Studio 中配置 Gemini 端侧接口标准适配模型</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGemini/GeminiChatbox.html">在 Chatbox 中配置 Gemini 端侧接口标准适配模型</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGemini/Gemini_Java.html">Gemini API 接口 Java 版本</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGemini/Gemini_Python.html">Gemini API 接口 python 版本</a></p>
+</div></div><div data-v-9eddef4e="" class="!w-[224px] hidden md:block"><div data-v-a003b3fc="" data-v-9eddef4e="" class="tiny-anchor tiny-anchor-affix !w-[224px] md:h-[calc(100vh-106px)] overflow-y-auto pr-[4px]" style="top: 96px;"><div data-v-a003b3fc="" class="tiny-anchor-wrapper"><div data-v-a003b3fc="" class="tiny-anchor-ink"><span data-v-a003b3fc="" class="tiny-anchor-ink-ball" style="top: 4px; height: 22px;"></span></div><div data-v-a003b3fc="" class="tiny-anchor-content"><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link tiny-anchor-link-active nav-level-1" data-href="#i08gvwm7ns59i7bu35em9h5"><a data-v-37156b3d="" class="tiny-anchor-link-title tiny-anchor-link-title-active" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#i08gvwm7ns59i7bu35em9h5">Gemini API 接口</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#czuobmoy7n4kepyhxz6b5l"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#czuobmoy7n4kepyhxz6b5l">基础文本对话</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#jsvte4nccrr8gqm3vk5iq54"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#jsvte4nccrr8gqm3vk5iq54">图像分析对话</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#tmrma6rgq80bia6pf9qe589"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#tmrma6rgq80bia6pf9qe589">文字生成图片</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#sg0isyv6ki45imzmmfojirr"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#sg0isyv6ki45imzmmfojirr">图片编辑</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#o9qdqazlz1h2ukrd6mdsiq"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#o9qdqazlz1h2ukrd6mdsiq">音频处理</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#o9m4qdvh13m97x9thqg6nbr"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#o9m4qdvh13m97x9thqg6nbr">PDF 处理</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#uyo0qfzzpgorcacnql0l985"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#uyo0qfzzpgorcacnql0l985">视频分析</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-1" data-href="#n04kv4vy00e7d70fafvdrh89"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1990976196986474498#n04kv4vy00e7d70fafvdrh89">Gemini 端侧接口标准适配模型在客户端的应用</a><!----></div></div></div></div></div></div></div></div><!-- Remove item from normal navigation flow, only available via hotkey --><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><ol data-sonner-toaster="" data-sonner-theme="light" class="toaster group pointer-events-auto" dir="ltr" tabindex="-1" data-theme="light" data-rich-colors="false" data-y-position="top" data-x-position="center" style="--front-toast-height: 0px; --width: 356px; --gap: 14px; --normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"></ol></section></div>
+  
+
+</body></html>

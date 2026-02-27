@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://fangzhou.wanjiedata.com/model-doc/1993597606384832519 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="icon" type="image/svg+xml" href="https://fangzhou.wanjiedata.com/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,no-store">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name="description" content="开发文档与 API 参考 - 万界方舟,万界方舟开发者中心。提供详尽的聚合 API 接入指南、多语言 SDK 与代码示例，助您在分钟级内完成全球顶尖大模型的集成。">
+    <title>API文档 - 万界方舟</title>
+    <script type="module" crossorigin="" src="./OpenAI API文档 - 万界方舟_files/index-CCO7CSfV.js"></script>
+    <link rel="stylesheet" crossorigin="" href="./OpenAI API文档 - 万界方舟_files/index-CYMg-IVt.css">
+  <link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/Doc-B1s_w1om.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/index-CF9Dg5nJ.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/error-BuVrAUnG.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/warning-triangle-DPa89w7j.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/model-fuB0P9uE.js"><link rel="modulepreload" as="script" crossorigin="" href="https://fangzhou.wanjiedata.com/js/data-DOtDIaBD.js"><link rel="stylesheet" crossorigin="" href="./OpenAI API文档 - 万界方舟_files/Doc-BMR65WUy.css"></head>
+  <body>
+    <div id="app" data-v-app=""><div data-v-9eddef4e="" data-v-b0300626="" class="min-h-screen pt-[65px] md:pt-[72px]"><header data-v-9eddef4e="" class="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 fixed w-full z-4 top-[0] h-[65px] md:h-[72px]"><div class="flex items-center justify-between"><div class="flex items-center space-x-2"><img src="./OpenAI API文档 - 万界方舟_files/logo-BedSVznW.png" alt="logo" class="h-8 cursor-pointer"></div><div class="flex items-center space-x-2 sm:space-x-4"><!----><!----><div class="flex items-center space-x-2"><span genarrowbyhtml="true"><div class="tiny-popover tiny-popper bg-white !p-2 border-gray-200 text-gray-700 w-54" role="tooltip" id="tiny-popover-2954" tabindex="0" style="display: none;"><!--v-if--><div class="py-3"><span class="font-bold text-gray-800">18268864093</span></div><div class="bg-gray-100 p-2 mb-2 flex items-center justify-between gap-2"><div class="text-gray-600 text-xs"><p class="mb-2">余额:</p><p class="text-gray-900">¥0</p></div><div class="cursor-pointer text-blue-500 text-xs">去充值</div></div><div class="tiny-divider tiny-divider--horizontal" style="height: auto; margin: 16px 0px; font-size: 14px;"><div class="tiny-divider-line tiny-divider--default" style="border-top-style: solid;"></div><!--v-if--></div><div class="cursor-pointer text-center py-3 text-xs text-gray-700 hover:bg-gray-50 hover:text-blue-700"> 个人中心 </div><div class="cursor-pointer text-center py-3 text-xs text-gray-800 hover:bg-gray-50 hover:text-blue-700"> 退出登录 </div></div><span class="reference-wrapper"><div class="!flex items-center space-x-2 flex-nowrap tiny-popover__reference" aria-describedby="tiny-popover-2954" tabindex="0"><div class="tiny-user-head w-8 h-8 cursor-pointer" size="40"><div class="tiny-user-head__portrait min round image" style="fill: rgb(255, 255, 255); color: rgb(255, 255, 255); background-color: rgb(181, 187, 193); background-image: url(&quot;/png/useravatar-C6sNEuBX.png&quot;);"><!--v-if--><!--v-if--></div><!--v-if--></div><span class="hidden sm:block text-gray-900 cursor-pointer">18268864093</span></div></span></span></div></div></div></header><div data-v-9eddef4e="" class="h-[calc(100vh-65px)] md:h-[calc(100vh-72px)] p-4 md:p-[24px]"><div data-v-9eddef4e="" class="overview-container"><div data-v-9eddef4e="" class="w-full md:flex-1 min-w-[0] px-6 md:px-12 pb-10"><div data-v-9eddef4e="" class="markdown-body hljs"><h1 id="eeeixq9wfvqwd480l32adxb" class="heading-1">OpenAI API 接口</h1><p>该模型适配于 OpenAI 端侧接口标准</p>
+<p>Base Url： <a target="_blank" href="https://maas-openapi.wanjiedata.com/api">https://maas-openapi.wanjiedata.com/api</a></p>
+<p>获取 <a target="_blank" href="https://www.wjark.com/center/api-key">API KEY</a>：<a target="_blank" href="https://www.wjark.com/center/api-key">https://www.wjark.com/center/api-key</a></p>
+<ul>
+<li><a target="_blank" href="https://docs.wjark.com/maas/UserGuide/Usage/OpenAI.html">OpenAI 端侧接口标准适配模型一览表</a>：<a target="_blank" href="https://docs.wjark.com/maas/UserGuide/Usage/OpenAI.html">https://docs.wjark.com/maas/UserGuide/Usage/OpenAI.html</a></li>
+</ul>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST <span class="hljs-regexp">/api/</span>v1<span class="hljs-regexp">/chat/</span>completions</code></pre>
+</code></pre><h2 id="onwdrcm30faime50kykkwe" class="heading-2">基础文本对话</h2><p><strong>非流式请求示例</strong>：</p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">export API_KEY=<span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+export MODEL=<span class="hljs-string">"&lt;OpenAI 端侧接口标准适配模型&gt;"</span>
+curl <span class="hljs-params">--location</span> <span class="hljs-params">--request</span> POST 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1/chat/completions</span>' \
+<span class="hljs-params">--header</span> <span class="hljs-string">"Authorization: Bearer $API_KEY"</span> \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data-raw</span> '{
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"'$MODEL'"</span>,
+    <span class="hljs-string">"messages"</span>: [{<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: <span class="hljs-string">"请用一句话介绍自己"</span>}],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">false</span>
+}'</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">import requests
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/chat/completions"</span>
+headers = {
+    <span class="hljs-string">"Authorization"</span>: <span class="hljs-string">"Bearer {}"</span>.format(<span class="hljs-string">"API_KEY"</span>),  # 请将 API_KEY 替换为你的实际密钥
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
+}
+data = {
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"MODEL"</span>,  # 请将 MODEL 替换为OpenAI 端侧接口标准适配模型
+    <span class="hljs-string">"messages"</span>: [{<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: <span class="hljs-string">"请用一句话介绍自己"</span>}],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">False</span>
+}
+response = requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">json</span>=data)
+<span class="hljs-built_in">print</span>(response.text)</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript">fetch(<span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/v1/chat/completions'</span>, {
+    <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'Bearer 你的APIKey'</span>,
+        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+    },
+    <span class="hljs-attr">body</span>: JSON.stringify({
+        <span class="hljs-attr">model</span>: <span class="hljs-string">' OpenAI 接口标准适用模型'</span>,
+        <span class="hljs-attr">messages</span>: [{ <span class="hljs-attr">role</span>: <span class="hljs-string">'user'</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'请用一句话介绍自己'</span> }],
+        <span class="hljs-attr">stream</span>: <span class="hljs-literal">false</span>
+    })
+})
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+        const reply = data.choices?.[<span class="hljs-number">0</span>]?.message?.content || <span class="hljs-string">''</span>;
+        <span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">'回复内容:'</span>, reply);
+        <span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(data);
+    })
+    .<span class="hljs-keyword">catch</span>(<span class="hljs-built_in">console</span>.error);
+</code></pre>
+</code></pre><p><strong>非流式响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"chatcmpl-Cct0tR2gzMsixFQns4Z0s3LbmEfek"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"object"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"chat.completion"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1763383971</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"model"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"GPT-4.1"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"choices"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assistant"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"我是由 OpenAI 开发的智能助手，能够帮助你解答问题、提供信息和支持各种文本写作需求。"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"tool_calls"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"finish_reason"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"stop"</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"usage"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"prompt_tokens"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"completion_tokens"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">27</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"total_tokens"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">40</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"system_fingerprint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"fp_f99638a8d7"</span>
+<span class="hljs-punctuation">}</span></code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"chatcmpl-Ccj1HgXyB5HQb6AT4kxA2Gv9iQkwB"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"object"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"chat.completion"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span><span class="hljs-number">1763345555</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"model"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"GPT-4.1"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"choices"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"assistant"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"我是 ChatGPT，一款由 OpenAI 开发的智能对话 AI 助手，很高兴为你提供帮助！"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"tool_calls"</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">null</span></span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"finish_reason"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"stop"</span><span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"usage"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">{</span><span class="hljs-attr">"prompt_tokens"</span><span class="hljs-punctuation">:</span><span class="hljs-number">13</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"completion_tokens"</span><span class="hljs-punctuation">:</span><span class="hljs-number">24</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"total_tokens"</span><span class="hljs-punctuation">:</span><span class="hljs-number">37</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"system_fingerprint"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"fp_f99638a8d7"</span><span class="hljs-punctuation">}</span></code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript">回复内容: 我是ChatGPT，一款由OpenAI开发的智能对话助手，能够帮助你解答问题、提供建议和创作内容。
+{
+    <span class="hljs-params">id:</span> 'chatcmpl-CckB5i7otsyx3qxWJiEZdGYAM3iVW',
+        <span class="hljs-params">object:</span> 'chat.completion',
+    <span class="hljs-params">created:</span> <span class="hljs-number">1763350007</span>,
+    <span class="hljs-params">model:</span> 'GPT-<span class="hljs-number">4.1</span>',
+    <span class="hljs-params">choices:</span> [ { <span class="hljs-params">index:</span> <span class="hljs-number">0</span>, <span class="hljs-params">message:</span> [Object], <span class="hljs-params">finish_reason:</span> 'stop' } ],
+    <span class="hljs-params">usage:</span> { <span class="hljs-params">prompt_tokens:</span> <span class="hljs-number">13</span>, <span class="hljs-params">completion_tokens:</span> <span class="hljs-number">30</span>, <span class="hljs-params">total_tokens:</span> <span class="hljs-number">43</span> },
+    <span class="hljs-params">system_fingerprint:</span> 'fp_f99638a8d7'
+}</code></pre>
+</code></pre><p><strong>流式请求示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-comment"># 调用聊天对话请求示例</span>
+export API_KEY=<span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+export MODEL=<span class="hljs-string">"&lt;OpenAI 端侧接口标准适配模型&gt;"</span>
+<span class="hljs-comment"># 授权模型名称：在授权模型列表中模型名称复制名称获取。</span>
+curl <span class="hljs-params">--location</span> <span class="hljs-params">--request</span> POST 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1/chat/completions</span>' \
+<span class="hljs-params">--header</span> <span class="hljs-string">"Authorization: Bearer $API_KEY"</span> \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data-raw</span> '{
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"'$MODEL'"</span>,
+    <span class="hljs-string">"messages"</span>: [{<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: <span class="hljs-string">"请用一句话介绍自己"</span>}],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">true</span>
+}'</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">import requests
+
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/chat/completions"</span>
+
+headers = {
+    <span class="hljs-string">"Authorization"</span>: <span class="hljs-string">"Bearer <span class="hljs-variable">$API_KEY</span>"</span>,
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
+}
+
+data = {
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"<span class="hljs-variable">$MODEL</span>"</span>,
+    <span class="hljs-string">"messages"</span>: [
+        {<span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>, <span class="hljs-string">"content"</span>: <span class="hljs-string">"请用一句话介绍自己"</span>}
+    ],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">True</span>
+}
+
+response = requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">json</span>=data)
+<span class="hljs-built_in">print</span>(response.text)
+</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript">fetch(<span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/v1/chat/completions'</span>, {
+    <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+    <span class="hljs-attr">headers</span>: {
+        <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'Bearer $API_KEY'</span>,
+        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+    },
+    <span class="hljs-attr">body</span>: JSON.stringify({
+        <span class="hljs-attr">model</span>: <span class="hljs-string">'$MODEL'</span>,
+        <span class="hljs-attr">messages</span>: [{ <span class="hljs-attr">role</span>: <span class="hljs-string">'user'</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'请用一句话介绍自己'</span> }],
+        <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>
+    })
+})
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.body)
+    .then(<span class="hljs-function"><span class="hljs-params">body</span> =&gt;</span> {
+        const reader = body.getReader();
+        const decoder = <span class="hljs-keyword">new</span> TextDecoder();
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">read</span>(<span class="hljs-params"></span>) {
+            reader.read().then(<span class="hljs-function">(<span class="hljs-params">{ done, value }</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (done) <span class="hljs-keyword">return</span>;
+                <span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(decoder.<span class="hljs-built_in">decode</span>(value));
+                read();
+            });
+        }
+        read();
+    })
+    .<span class="hljs-keyword">catch</span>(<span class="hljs-built_in">console</span>.error);
+</code></pre>
+</code></pre><p><strong>流式响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"chatcmpl-CdAoolTjqXY1Ip5sMFPN4buGPgW1V"</span>,
+    <span class="hljs-string">"object"</span>: <span class="hljs-string">"chat.completion.chunk"</span>,
+    <span class="hljs-string">"created"</span>: <span class="hljs-number">1763452414</span>,
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"GPT-4.1"</span>,
+    <span class="hljs-string">"system_fingerprint"</span>: <span class="hljs-string">"fp_f99638a8d7"</span>,
+    <span class="hljs-string">"choices"</span>: [],
+    <span class="hljs-string">"usage"</span>: {
+        <span class="hljs-string">"prompt_tokens"</span>: <span class="hljs-number">13</span>,
+        <span class="hljs-string">"completion_tokens"</span>: <span class="hljs-number">30</span>,
+        <span class="hljs-string">"total_tokens"</span>: <span class="hljs-number">43</span>,
+        <span class="hljs-string">"prompt_tokens_details"</span>: {
+            <span class="hljs-string">"cached_tokens"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"audio_tokens"</span>: <span class="hljs-number">0</span>
+        },
+        <span class="hljs-string">"completion_tokens_details"</span>: {
+            <span class="hljs-string">"reasoning_tokens"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"audio_tokens"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"accepted_prediction_tokens"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"rejected_prediction_tokens"</span>: <span class="hljs-number">0</span>
+        }
+    }
+}</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python"><span class="hljs-params">id:</span> <span class="hljs-number">0</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBkqaNlBzKQS31mZAMEBduz1WuVO"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456012</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_433e8c8649"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"role"</span>:<span class="hljs-string">"assistant"</span>,<span class="hljs-string">"content"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"reasoning_content"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"refusal"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"tool_calls"</span>:<span class="hljs-literal">null</span>},<span class="hljs-string">"logprobs"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}],<span class="hljs-string">"usage"</span>:<span class="hljs-literal">null</span>}
+
+<span class="hljs-params">id:</span> <span class="hljs-number">1</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBkqaNlBzKQS31mZAMEBduz1WuVO"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456012</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_433e8c8649"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"role"</span>:<span class="hljs-string">"assistant"</span>,<span class="hljs-string">"content"</span>:<span class="hljs-string">"ææ¯"</span>,<span class="hljs-string">"reasoning_content"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"refusal"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"tool_calls"</span>:<span class="hljs-literal">null</span>},<span class="hljs-string">"logprobs"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}],<span class="hljs-string">"usage"</span>:<span class="hljs-literal">null</span>}
+...
+...
+<span class="hljs-params">id:</span> <span class="hljs-number">26</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBkqaNlBzKQS31mZAMEBduz1WuVO"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456012</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_433e8c8649"</span>,<span class="hljs-string">"choices"</span>:[],<span class="hljs-string">"usage"</span>:{<span class="hljs-string">"prompt_tokens"</span>:<span class="hljs-number">13</span>,<span class="hljs-string">"completion_tokens"</span>:<span class="hljs-number">24</span>,<span class="hljs-string">"total_tokens"</span>:<span class="hljs-number">37</span>,<span class="hljs-string">"prompt_tokens_details"</span>:{<span class="hljs-string">"cached_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"audio_tokens"</span>:<span class="hljs-number">0</span>},<span class="hljs-string">"completion_tokens_details"</span>:{<span class="hljs-string">"reasoning_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"audio_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"accepted_prediction_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"rejected_prediction_tokens"</span>:<span class="hljs-number">0</span>}}}
+
+<span class="hljs-params">id:</span> <span class="hljs-number">27</span>
+<span class="hljs-params">data:</span> [DONE]</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-params">id:</span> <span class="hljs-number">0</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBmDOXRAJjS3yNOwWWKdFPseydfV"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456097</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_f99638a8d7"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"role"</span>:<span class="hljs-string">"assistant"</span>,<span class="hljs-string">"content"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"reasoning_content"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"refusal"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"tool_calls"</span>:<span class="hljs-literal">null</span>},<span class="hljs-string">"logprobs"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}],<span class="hljs-string">"usage"</span>:<span class="hljs-literal">null</span>}
+
+<span class="hljs-params">id:</span> <span class="hljs-number">1</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBmDOXRAJjS3yNOwWWKdFPseydfV"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456097</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_f99638a8d7"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"role"</span>:<span class="hljs-string">"assistant"</span>,<span class="hljs-string">"content"</span>:<span class="hljs-string">"我是"</span>,<span class="hljs-string">"reasoning_content"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"refusal"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"tool_calls"</span>:<span class="hljs-literal">null</span>},<span class="hljs-string">"logprobs"</span>:<span class="hljs-literal">null</span>,<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}],<span class="hljs-string">"usage"</span>:<span class="hljs-literal">null</span>}
+...
+...
+<span class="hljs-params">id:</span> <span class="hljs-number">27</span>
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">"chatcmpl-CdBmDOXRAJjS3yNOwWWKdFPseydfV"</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">1763456097</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"GPT-4.1"</span>,<span class="hljs-string">"system_fingerprint"</span>:<span class="hljs-string">"fp_f99638a8d7"</span>,<span class="hljs-string">"choices"</span>:[],<span class="hljs-string">"usage"</span>:{<span class="hljs-string">"prompt_tokens"</span>:<span class="hljs-number">13</span>,<span class="hljs-string">"completion_tokens"</span>:<span class="hljs-number">26</span>,<span class="hljs-string">"total_tokens"</span>:<span class="hljs-number">39</span>,<span class="hljs-string">"prompt_tokens_details"</span>:{<span class="hljs-string">"cached_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"audio_tokens"</span>:<span class="hljs-number">0</span>},<span class="hljs-string">"completion_tokens_details"</span>:{<span class="hljs-string">"reasoning_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"audio_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"accepted_prediction_tokens"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"rejected_prediction_tokens"</span>:<span class="hljs-number">0</span>}}}
+
+<span class="hljs-params">id:</span> <span class="hljs-number">28</span>
+<span class="hljs-params">data:</span> [DONE]</code></pre>
+</code></pre><h2 id="vcs7zwggf1jlcbb6rjgwky4" class="heading-2">文生视频接口</h2><ul>
+<li>支持的模型：sora-2、veo3.1-fast、veo3.1-pro、veo3.1</li>
+</ul>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST /v1/chat/completions</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1/chat/completions</span>' \
+<span class="hljs-params">--header</span> 'Authorization: Bearer $API_KEY' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data</span> '{
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"$MODEL"</span>,
+    <span class="hljs-string">"messages"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"content"</span>: <span class="hljs-string">"武汉文旅    "</span>
+        }
+    ],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">true</span>
+}'</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">import requests
+API_KEY = <span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+MODEL = <span class="hljs-string">"sora-2"</span>
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/chat/completions"</span>
+headers = {
+    <span class="hljs-string">"Authorization"</span>: f<span class="hljs-string">"Bearer {API_KEY}"</span>,
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
+}
+payload = {
+    <span class="hljs-string">"model"</span>: MODEL,
+    <span class="hljs-string">"messages"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"content"</span>: <span class="hljs-string">"武汉文旅视频"</span>
+        }
+    ],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">True</span>
+}
+response = requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">json</span>=payload, <span class="hljs-attribute">stream</span>=<span class="hljs-literal">True</span>) 
+<span class="hljs-keyword">if</span> response.status_code == 200:
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> response.iter_lines(<span class="hljs-attribute">decode_unicode</span>=<span class="hljs-literal">True</span>):
+        <span class="hljs-keyword">if</span> line:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"收到分块："</span>, line)
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"请求失败:"</span>, response.status_code)
+    <span class="hljs-built_in">print</span>(response.text)</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
+<span class="hljs-keyword">const</span> apiKey = <span class="hljs-string">'&lt;你的 API KEY&gt;'</span>;
+<span class="hljs-keyword">const</span> model = <span class="hljs-string">'&lt;你的授权文生视频模型名称&gt;'</span>;
+
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/v1/chat/completions'</span>;
+
+<span class="hljs-keyword">const</span> headers = {
+    <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${apiKey}</span>`</span>,
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+};
+
+<span class="hljs-keyword">const</span> data = {
+    model,
+    <span class="hljs-attr">messages</span>: [
+        { <span class="hljs-attr">role</span>: <span class="hljs-string">'user'</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'武汉文旅视频'</span> }
+    ],
+    <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>
+};
+
+axios.<span class="hljs-title function_">post</span>(url, data, { headers })
+    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>))
+    .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">response</span> ? err.<span class="hljs-property">response</span>.<span class="hljs-property">data</span> : err.<span class="hljs-property">message</span>));</code></pre>
+</code></pre><p><strong>响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"object"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"chat.completion.chunk"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"created"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"model"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"sora-2"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"choices"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"delta"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"assistant"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"finish_reason"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span></code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">收到分块： <span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"content"</span>:<span class="hljs-string">"```json<span class="hljs-char escape_">\n</span>{<span class="hljs-char escape_">\n</span>    <span class="hljs-char escape_">\"</span>prompt<span class="hljs-char escape_">\"</span>: <span class="hljs-char escape_">\"</span>武汉文旅视频<span class="hljs-char escape_">\"</span>,<span class="hljs-char escape_">\n</span>    <span class="hljs-char escape_">\"</span>mode<span class="hljs-char escape_">\"</span>: <span class="hljs-char escape_">\"</span>横屏模式<span class="hljs-char escape_">\"</span><span class="hljs-char escape_">\n</span>}<span class="hljs-char escape_">\n</span>```<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]}
+收到分块： <span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"content"</span>:<span class="hljs-string">"<span class="hljs-char escape_">\u</span>003e ⌛️ 任务正在队列中，请耐心等待...<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]]}
+收到分块： <span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"content"</span>:<span class="hljs-string">"<span class="hljs-char escape_">\u</span>003e ✅ 视频生成成功，[点击这里](https://static.aiclound.vip/sora/3b69194c-f7f0-40f8-b13b-b6008f73570f.mp4) 查看视频~~~<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]}
+收到分块： <span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-string">"stop"</span>}],<span class="hljs-string">"usage"</span>:{<span class="hljs-string">"prompt_tokens"</span>:<span class="hljs-number">14</span>,<span class="hljs-string">"completion_tokens"</span>:<span class="hljs-number">240</span>,<span class="hljs-string">"total_tokens"</span>:<span class="hljs-number">254</span>}}
+收到分块： <span class="hljs-params">data:</span> [DONE]</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"role"</span>:<span class="hljs-string">"assistant"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]}
+
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"content"</span>:<span class="hljs-string">"```json<span class="hljs-char escape_">\n</span>{<span class="hljs-char escape_">\n</span>    <span class="hljs-char escape_">\"</span>prompt<span class="hljs-char escape_">\"</span>: <span class="hljs-char escape_">\"</span>武汉文旅视频<span class="hljs-char escape_">\"</span>,<span class="hljs-char escape_">\n</span>    <span class="hljs-char escape_">\"</span>mode<span class="hljs-char escape_">\"</span>: <span class="hljs-char escape_">\"</span>横屏模式<span class="hljs-char escape_">\"</span><span class="hljs-char escape_">\n</span>}<span class="hljs-char escape_">\n</span>```<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]}
+
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{<span class="hljs-string">"content"</span>:<span class="hljs-string">"<span class="hljs-char escape_">\u</span>003e ✅ 视频生成成功，[点击这里](https://static.aiclound.vip/sora/f794fa3f-0b7c-4540-93b7-27476d35a571.mp4) 查看视频~~~<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-literal">null</span>}]}
+
+<span class="hljs-params">data:</span> {<span class="hljs-string">"id"</span>:<span class="hljs-string">""</span>,<span class="hljs-string">"object"</span>:<span class="hljs-string">"chat.completion.chunk"</span>,<span class="hljs-string">"created"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"model"</span>:<span class="hljs-string">"sora-2"</span>,<span class="hljs-string">"choices"</span>:[{<span class="hljs-string">"index"</span>:<span class="hljs-number">0</span>,<span class="hljs-string">"delta"</span>:{},<span class="hljs-string">"finish_reason"</span>:<span class="hljs-string">"stop"</span>}],<span class="hljs-string">"usage"</span>:{<span class="hljs-string">"prompt_tokens"</span>:<span class="hljs-number">14</span>,<span class="hljs-string">"completion_tokens"</span>:<span class="hljs-number">276</span>,<span class="hljs-string">"total_tokens"</span>:<span class="hljs-number">290</span>}}
+
+<span class="hljs-params">data:</span> [DONE]
+</code></pre>
+</code></pre><h2 id="tjzwvdyofjs8jee7461zyyd" class="heading-2">错误编码说明</h2><p>见<a target="_blank" href="https://platform.openai.com/docs/guides/error-codes">错误编码说明</a></p>
+<h2 id="zm9vwwd48rgqpjyobb0kxj" class="heading-2">图生视频接口</h2><ul>
+<li>支持的模型：sora-2、veo3.1-fast、veo3.1-pro、veo3.1</li>
+</ul>
+<p><strong>1. 图片转 URL（生成url支持公网访问）</strong></p>
+<p><strong>请求示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-string">curl</span> <span class="hljs-built_in">--location</span> <span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/file/v1/uploadFile'</span> \
+<span class="hljs-built_in">--header</span> <span class="hljs-string">'Authorization: 你的key'</span> \
+<span class="hljs-built_in">--form</span> <span class="hljs-string">'maasFile=@"postman-cloud:///1f0c5bd8-53ca-43c0-bbde-19562bb591bb"'</span></code></pre>
+</code></pre><p><mark>使用时需要在 body 层配置 maasFile ，Text：输入文本；File：上传本地图片</mark></p>
+<p><strong>响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"code"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">200</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"result"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"粘贴你的图片 URL"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"fileName"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xxx.jpg"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1763711398638</span>
+<span class="hljs-punctuation">}</span></code></pre>
+</code></pre><p><mark>注意：上传对应的图片文件，目前仅仅 “jpg，png，jpeg”三种格式生成视频，生成的图片 URL 有效期 24h</mark></p>
+<p><strong>2. 图片 URL 生成视频</strong></p>
+<p><strong>请求示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">curl <span class="hljs-params">--location</span> 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1/chat/completions</span>' \
+<span class="hljs-params">--header</span> 'Authorization: 您的key' \
+<span class="hljs-params">--header</span> 'accept: text/event-stream' \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data</span> '{
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"sora-2"</span>,
+    <span class="hljs-string">"messages"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"content"</span>: [
+                {
+                    <span class="hljs-string">"type"</span>: <span class="hljs-string">"text"</span>,
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"这里写你的要求"</span>
+                },
+                {
+                    <span class="hljs-string">"type"</span>: <span class="hljs-string">"image_url"</span>,
+                    <span class="hljs-string">"image_url"</span>: {
+                        <span class="hljs-string">"url"</span>: <span class="hljs-string">"上传图片的url"</span>
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">true</span>
+}'</code></pre>
+</code></pre><p><strong>响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"foaicmpl-03580ff5-5ca0-421e-9d15-a908e14aac47"</span>,
+    <span class="hljs-string">"object"</span>: <span class="hljs-string">"chat.completion.chunk"</span>,
+    <span class="hljs-string">"created"</span>: <span class="hljs-number">1764750479</span>,
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"sora-2"</span>,
+    <span class="hljs-string">"choices"</span>: [
+        {
+            <span class="hljs-string">"index"</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-string">"delta"</span>: {
+                <span class="hljs-string">"content"</span>: 
+                ...
+                <span class="hljs-string">"&gt; 🏃 进度：98.7%<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>
+                <span class="hljs-string">"&gt; ✅ 视频生成成功，[点击这里](https://4o-image-plus.oss-cn-hongkong.aliyuncs.com/sora/aee7c29b-8346-4b95-8977-0e34da3c633d.mp4) 查看视频~~~<span class="hljs-char escape_">\n</span><span class="hljs-char escape_">\n</span>"</span>
+            },
+            <span class="hljs-string">"finish_reason"</span>: <span class="hljs-literal">null</span>
+        }
+    ]
+}</code></pre>
+</code></pre><p><strong>其他文件请求格式如下：</strong></p>
+<pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">1. 图片转 URL 
+
+import requests
+
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/file/v1/uploadFile"</span>
+
+<span class="hljs-comment"># 替换为你的实际API key</span>
+api_key = <span class="hljs-string">"你的key"</span>
+
+headers = {
+    <span class="hljs-string">"Authorization"</span>: api_key
+}
+
+<span class="hljs-comment"># 方式1：上传本地文件</span>
+files = {
+    <span class="hljs-string">'maasFile'</span>: (<span class="hljs-string">'xxx.jpg'</span>, open(<span class="hljs-string">'path/to/your/file.jpg'</span>, <span class="hljs-string">'rb'</span>), <span class="hljs-string">'image/jpeg'</span>)
+}
+
+<span class="hljs-comment"># 方式2：如果你要上传的文件在内存中，可以这样：</span>
+<span class="hljs-comment"># files = {</span>
+<span class="hljs-comment">#     'maasFile': ('xxx.jpg', file_content, 'image/jpeg')</span>
+<span class="hljs-comment"># }</span>
+
+response = requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">files</span>=files)
+
+<span class="hljs-comment"># 关闭文件</span>
+<span class="hljs-keyword">if</span> <span class="hljs-string">'files'</span> <span class="hljs-keyword">in</span> locals():
+    <span class="hljs-keyword">for</span> file_tuple <span class="hljs-keyword">in</span> files.values():
+        <span class="hljs-keyword">if</span> hasattr(file_tuple[1], <span class="hljs-string">'close'</span>):
+            file_tuple[1].close()
+
+<span class="hljs-built_in">print</span>(response.text)
+
+
+2. 图片 URL 生成视频
+
+import requests
+import json
+
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/chat/completions"</span>
+
+<span class="hljs-comment"># 替换为你的实际API key</span>
+api_key = <span class="hljs-string">"您的key"</span>
+
+headers = {
+    <span class="hljs-string">"Authorization"</span>: api_key,
+    <span class="hljs-string">"accept"</span>: <span class="hljs-string">"text/event-stream"</span>,
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
+}
+
+<span class="hljs-comment"># 替换为实际上传图片的URL</span>
+image_url = <span class="hljs-string">"上传图片的url"</span>
+
+data = {
+    <span class="hljs-string">"model"</span>: <span class="hljs-string">"sora-2"</span>,
+    <span class="hljs-string">"messages"</span>: [
+        {
+            <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+            <span class="hljs-string">"content"</span>: [
+                {
+                    <span class="hljs-string">"type"</span>: <span class="hljs-string">"text"</span>,
+                    <span class="hljs-string">"text"</span>: <span class="hljs-string">"这里写你的要求"</span>
+                },
+                {
+                    <span class="hljs-string">"type"</span>: <span class="hljs-string">"image_url"</span>,
+                    <span class="hljs-string">"image_url"</span>: {
+                        <span class="hljs-string">"url"</span>: image_url
+                    }
+                }
+            ]
+        }
+    ],
+    <span class="hljs-string">"stream"</span>: <span class="hljs-literal">True</span>
+}
+
+<span class="hljs-comment"># 流式处理响应</span>
+with requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">json</span>=data, <span class="hljs-attribute">stream</span>=<span class="hljs-literal">True</span>) as response:
+    response.raise_for_status()  # 检查HTTP错误
+    
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> response.iter_lines():
+        <span class="hljs-keyword">if</span> line:
+            decoded_line = line.decode(<span class="hljs-string">'utf-8'</span>)
+            # 处理SSE格式的数据
+            <span class="hljs-keyword">if</span> decoded_line.startswith(<span class="hljs-string">'data: '</span>):
+                <span class="hljs-keyword">if</span> decoded_line == <span class="hljs-string">'data: [DONE]'</span>:
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">"流式传输完成"</span>)
+                    break
+                <span class="hljs-keyword">else</span>:
+                    try:
+                        # 移除 <span class="hljs-string">'data: '</span> 前缀并解析JSON
+                        json_data = json.loads(decoded_line[6:])
+                        <span class="hljs-built_in">print</span>(json.dumps(json_data, <span class="hljs-attribute">indent</span>=2, <span class="hljs-attribute">ensure_ascii</span>=<span class="hljs-literal">False</span>))
+                    except json.JSONDecodeError:
+                        <span class="hljs-built_in">print</span>(f<span class="hljs-string">"无法解析的JSON: {decoded_line}"</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(f<span class="hljs-string">"原始数据: {decoded_line}"</span>)
+</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-number">1.</span> 图片转 <span class="hljs-variable constant_">URL</span>
+
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">FormData</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">uploadFile</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormData</span>();
+        form.<span class="hljs-title function_">append</span>(<span class="hljs-string">'maasFile'</span>, fs.<span class="hljs-title function_">createReadStream</span>(<span class="hljs-string">'你的文件所在路径，格式为C:/Users/1764750392698_download.png'</span>));
+
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">post</span>(
+            <span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/file/v1/uploadFile'</span>,
+            form,
+            {
+                <span class="hljs-attr">headers</span>: {
+                    <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'你的 API Key'</span>,
+                    ...form.<span class="hljs-title function_">getHeaders</span>()
+                }
+            }
+        );
+
+        <span class="hljs-comment">// 假设响应数据中包含url字段</span>
+        <span class="hljs-keyword">if</span> (response.<span class="hljs-property">data</span> &amp;&amp; response.<span class="hljs-property">data</span>.<span class="hljs-property">url</span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>.<span class="hljs-property">url</span>);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'上传成功，但未找到URL:'</span>, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(response.<span class="hljs-property">data</span>));
+        }
+
+    } <span class="hljs-keyword">catch</span> (error) {
+        <span class="hljs-keyword">if</span> (error.<span class="hljs-property">response</span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'上传失败:'</span>, error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span>);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'上传失败:'</span>, error.<span class="hljs-property">message</span>);
+        }
+    }
+}
+
+<span class="hljs-title function_">uploadFile</span>();
+
+
+<span class="hljs-number">2.</span> 图片 <span class="hljs-variable constant_">URL</span> 生成视频
+
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'开始生成视频...'</span>);
+
+        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">post</span>(
+            <span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/v1/chat/completions'</span>,
+            {
+                <span class="hljs-string">"model"</span>: <span class="hljs-string">"sora-2"</span>,
+                <span class="hljs-string">"messages"</span>: [
+                    {
+                        <span class="hljs-string">"role"</span>: <span class="hljs-string">"user"</span>,
+                        <span class="hljs-string">"content"</span>: [
+                            {<span class="hljs-string">"type"</span>: <span class="hljs-string">"text"</span>, <span class="hljs-string">"text"</span>: <span class="hljs-string">"这里写你的要求"</span>},
+                            {<span class="hljs-string">"type"</span>: <span class="hljs-string">"image_url"</span>, <span class="hljs-string">"image_url"</span>: {<span class="hljs-string">"url"</span>: <span class="hljs-string">"粘贴你的图片 URL"</span>}}
+                        ]
+                    }
+                ],
+                <span class="hljs-string">"stream"</span>: <span class="hljs-literal">true</span>
+            },
+            {
+                <span class="hljs-attr">headers</span>: {
+                    <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'你的 API Key'</span>,
+                    <span class="hljs-string">'accept'</span>: <span class="hljs-string">'text/event-stream'</span>,
+                    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+                },
+                <span class="hljs-attr">responseType</span>: <span class="hljs-string">'stream'</span>
+            }
+        );
+
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'连接成功，正在接收流数据...'</span>);
+
+        <span class="hljs-comment">// 处理流数据</span>
+        response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function">(<span class="hljs-params">chunk</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> data = chunk.<span class="hljs-title function_">toString</span>();
+            <span class="hljs-comment">// 解析SSE数据</span>
+            <span class="hljs-keyword">if</span> (data.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'data: '</span>)) {
+                <span class="hljs-keyword">const</span> jsonData = data.<span class="hljs-title function_">replace</span>(<span class="hljs-string">'data: '</span>, <span class="hljs-string">''</span>);
+                <span class="hljs-keyword">if</span> (jsonData.<span class="hljs-title function_">trim</span>() !== <span class="hljs-string">'[DONE]'</span>) {
+                    <span class="hljs-keyword">try</span> {
+                        <span class="hljs-keyword">const</span> parsed = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(jsonData);
+                        <span class="hljs-keyword">if</span> (parsed.<span class="hljs-property">choices</span> &amp;&amp; parsed.<span class="hljs-property">choices</span>[<span class="hljs-number">0</span>]) {
+                            <span class="hljs-keyword">const</span> content = parsed.<span class="hljs-property">choices</span>[<span class="hljs-number">0</span>].<span class="hljs-property">delta</span>?.<span class="hljs-property">content</span>;
+                            <span class="hljs-keyword">if</span> (content) {
+                                process.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">write</span>(content);
+                            }
+                        }
+                    } <span class="hljs-keyword">catch</span> (e) {
+                        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'原始数据:'</span>, jsonData);
+                    }
+                }
+            }
+        });
+
+        response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'\n视频生成完成！'</span>);
+        });
+
+        response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'流错误:'</span>, error);
+        });
+
+    } <span class="hljs-keyword">catch</span> (error) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'请求错误:'</span>, error.<span class="hljs-property">message</span>);
+        <span class="hljs-keyword">if</span> (error.<span class="hljs-property">response</span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'响应状态:'</span>, error.<span class="hljs-property">response</span>.<span class="hljs-property">status</span>);
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'响应数据:'</span>, error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span>);
+        }
+    }
+}
+
+<span class="hljs-title function_">main</span>();
+</code></pre>
+</code></pre><h2 id="jlc11t8qiezlkk1fzfjknae" class="heading-2">Open AI 文生图接口</h2><ul>
+<li>支持的模型：FLUX.2-dev、Z-Image-Turbo</li>
+</ul>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">POST /v1/images/generations</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">export API_KEY=<span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+export MODEL=<span class="hljs-string">"&lt;你的授权文生图模型名称&gt;"</span>
+curl <span class="hljs-params">--location</span> <span class="hljs-params">--request</span> POST 'https:<span class="hljs-string">//maas-openapi.wanjiedata.com/api/v1/images/generations</span>' \
+<span class="hljs-params">--header</span> <span class="hljs-string">"Authorization: Bearer $API_KEY"</span>  \
+<span class="hljs-params">--header</span> 'Content-Type: application/json' \
+<span class="hljs-params">--data-raw</span> '{
+  <span class="hljs-string">"model"</span>: <span class="hljs-string">"'$MODEL'"</span>,
+  <span class="hljs-string">"prompt"</span>: <span class="hljs-string">"graphic of a Harley Davidson bike"</span>,
+  <span class="hljs-string">"n"</span>: 1,
+  <span class="hljs-string">"size"</span>: <span class="hljs-string">"1024x1024"</span>,
+  <span class="hljs-string">"responseFormat"</span>: <span class="hljs-string">"url"</span>,
+  <span class="hljs-string">"quality"</span>: <span class="hljs-string">"standard"</span>,
+  <span class="hljs-string">"style"</span>: <span class="hljs-string">"vivid"</span>
+}'</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">import requests
+API_KEY = <span class="hljs-string">"&lt;你的 API KEY&gt;"</span>
+MODEL = <span class="hljs-string">"&lt;你的授权文生图模型名称&gt;"</span>
+url = <span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/images/generations"</span>
+headers = {
+    <span class="hljs-string">"Authorization"</span>: f<span class="hljs-string">"Bearer {API_KEY}"</span>,
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
+}
+payload = {
+    <span class="hljs-string">"model"</span>: MODEL,
+    <span class="hljs-string">"prompt"</span>: <span class="hljs-string">"graphic of a Harley Davidson bike"</span>,
+    <span class="hljs-string">"n"</span>: 1,
+    <span class="hljs-string">"size"</span>: <span class="hljs-string">"1024x1024"</span>,
+    <span class="hljs-string">"responseFormat"</span>: <span class="hljs-string">"url"</span>,
+    <span class="hljs-string">"quality"</span>: <span class="hljs-string">"standard"</span>,
+    <span class="hljs-string">"style"</span>: <span class="hljs-string">"vivid"</span>
+}
+response = requests.post(url, <span class="hljs-attribute">headers</span>=headers, <span class="hljs-attribute">json</span>=payload)
+<span class="hljs-keyword">if</span> response.status_code == 200:
+    result = response.json()
+    <span class="hljs-built_in">print</span>(result) 
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"请求失败:"</span>, response.status_code)
+    <span class="hljs-built_in">print</span>(response.text)</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+
+<span class="hljs-keyword">const</span> apiKey = <span class="hljs-string">'&lt;你的 API KEY&gt;'</span>;
+<span class="hljs-keyword">const</span> model = <span class="hljs-string">'&lt;你的授权文生图模型名称&gt;'</span>;
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://maas-openapi.wanjiedata.com/api/v1/images/generations'</span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">generateImage</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> headers = {
+        <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${apiKey}</span>`</span>,
+        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>
+    };
+    <span class="hljs-keyword">const</span> data = {
+        model,
+        <span class="hljs-attr">prompt</span>: <span class="hljs-string">'graphic of a Harley Davidson bike'</span>,
+        <span class="hljs-attr">n</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">size</span>: <span class="hljs-string">'1024x1024'</span>,
+        <span class="hljs-attr">responseFormat</span>: <span class="hljs-string">'url'</span>
+    };
+
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">post</span>(url, data, { headers });
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>.<span class="hljs-property">data</span>[<span class="hljs-number">0</span>].<span class="hljs-property">url</span>);
+    } <span class="hljs-keyword">catch</span> (err) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">'请求失败:'</span>, err.<span class="hljs-property">message</span>);
+    }
+}
+
+<span class="hljs-title function_">generateImage</span>();</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-csharp"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">csharp</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body csharp"><span class="hljs-keyword">using</span> System.Net.Http;
+<span class="hljs-keyword">using</span> System.Text;
+<span class="hljs-keyword">using</span> System.Threading.Tasks;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">P</span> {
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">Main</span>()</span> {
+        <span class="hljs-keyword">var</span> c = <span class="hljs-keyword">new</span> HttpClient();
+        c.DefaultRequestHeaders.Add(<span class="hljs-string">"Authorization"</span>, <span class="hljs-string">"Bearer &lt;API_KEY&gt;"</span>);
+        <span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> StringContent(<span class="hljs-string">@"{
+            ""model"":""&lt;MODEL&gt;"",
+            ""prompt"":""graphic of a Harley Davidson bike"",
+            ""n"":1,
+            ""size"":""1024x1024"",
+            ""responseFormat"":""url"",
+            ""quality"":""standard"",
+            ""style"":""vivid""
+        }"</span>, Encoding.UTF8, <span class="hljs-string">"application/json"</span>);
+        <span class="hljs-keyword">var</span> r = <span class="hljs-keyword">await</span> c.PostAsync(<span class="hljs-string">"https://maas-openapi.wanjiedata.com/api/v1/images/generations"</span>, d);
+        System.Console.WriteLine(<span class="hljs-keyword">await</span> r.Content.ReadAsStringAsync());
+    }
+}
+</code></pre>
+</code></pre><p><strong>响应示例</strong></p>
+<pre class="hljs"><code class="hljs language-shell"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">shell</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body shell">{
+    <span class="hljs-string">"created"</span>: <span class="hljs-number">1762221608</span>,
+    <span class="hljs-string">"data"</span>: [
+        {
+            <span class="hljs-string">"url"</span>: <span class="hljs-string">"https://rgw.wanjiedata.com/maas-public-bucket/2025/11/04/c3fe6bdd3a601f90c4d1e33e961e064f.jpg"</span>
+        }
+    ],
+    <span class="hljs-string">"usage"</span>: {
+        <span class="hljs-string">"input_tokens_details"</span>: {}
+    }
+}</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-python"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">python</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body python">{
+    'created'<span class="hljs-punctuation">:</span> <span class="hljs-number">1762220795</span><span class="hljs-punctuation">,</span> 
+    'data'<span class="hljs-punctuation">:</span> [{'url'<span class="hljs-punctuation">:</span> 'https://rgw.wanjiedata.com/maas-public-bucket/<span class="hljs-number">2025/11/04</span>/a920b<span class="hljs-number">1331</span>c7c<span class="hljs-number">567662</span>4e38cbc10d8b43.jpg'}]<span class="hljs-punctuation">,</span>
+    'usage'<span class="hljs-punctuation">:</span> {'input_tokens_details'<span class="hljs-punctuation">:</span> {}
+    }
+    }</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-javascript"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">javascript</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body javascript"><span class="hljs-attribute">https</span>://rgw.wanjiedata.com/maas-public-bucket/<span class="hljs-number">2025</span>/<span class="hljs-number">11</span>/<span class="hljs-number">04</span>/<span class="hljs-number">0</span>d4e5bc27fe7b76a1544a36d75f4c1da.jpg</code></pre>
+</code></pre><pre class="hljs"><code class="hljs language-csharp"><pre class="code-block-wrapper"><div class="code-block-header"><span class="code-block-header__lang">csharp</span><span class="code-block-header__copy" role="button" aria-label="复制代码">复制</span></div><code class="hljs code-block-body csharp">{<span class="hljs-string">"created"</span>:<span class="hljs-number">1762414008</span>,<span class="hljs-string">"data"</span>:[{<span class="hljs-string">"url"</span>:<span class="hljs-string">"https://rgw.wanjiedata.com/maas-public-bucket/2025/11/06/6c6eaaa374eb4be4a629b3adff530412.jpg"</span>}],<span class="hljs-string">"usage"</span>:{<span class="hljs-string">"input_tokens_details"</span>:{}}}</code></pre>
+</code></pre><p><strong>文生图接口参数说明见</strong> <a target="_blank" href="https://platform.openai.com/docs/api-reference/images/create">OpenAI API Create image</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGPTmodel/sorapro.html">sora-2-pro-openai 请求调用方式</a></p>
+<h1 id="uj67diz5qlfgvfhiartr3il" class="heading-1">OpenAI 接口标准适用模型配置相关文档参考</h1><p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGPTmodel/GPTCherryStudio.html">在 Cherry Studio 中配置 OpenAI 接口标准适用模型</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGPTmodel/GPTDeepResearchWebUI.html">Deep Research Web UI 配置 OpenAI 接口标准适用模型教程</a></p>
+<p><a target="_blank" href="https://docs.wjark.com/maas/scenarios/USEGPTmodel/OpenAI_Java.html">OpenAI API 接口 Java 版本</a></p>
+</div></div><div data-v-9eddef4e="" class="!w-[224px] hidden md:block"><div data-v-a003b3fc="" data-v-9eddef4e="" class="tiny-anchor tiny-anchor-affix !w-[224px] md:h-[calc(100vh-106px)] overflow-y-auto pr-[4px]" style="top: 96px;"><div data-v-a003b3fc="" class="tiny-anchor-wrapper"><div data-v-a003b3fc="" class="tiny-anchor-ink"><span data-v-a003b3fc="" class="tiny-anchor-ink-ball" style="top: 4px; height: 22px;"></span></div><div data-v-a003b3fc="" class="tiny-anchor-content"><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link tiny-anchor-link-active nav-level-1" data-href="#eeeixq9wfvqwd480l32adxb"><a data-v-37156b3d="" class="tiny-anchor-link-title tiny-anchor-link-title-active" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#eeeixq9wfvqwd480l32adxb">OpenAI API 接口</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#onwdrcm30faime50kykkwe"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#onwdrcm30faime50kykkwe">基础文本对话</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#vcs7zwggf1jlcbb6rjgwky4"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#vcs7zwggf1jlcbb6rjgwky4">文生视频接口</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#tjzwvdyofjs8jee7461zyyd"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#tjzwvdyofjs8jee7461zyyd">错误编码说明</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#zm9vwwd48rgqpjyobb0kxj"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#zm9vwwd48rgqpjyobb0kxj">图生视频接口</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-2" data-href="#jlc11t8qiezlkk1fzfjknae"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#jlc11t8qiezlkk1fzfjknae">Open AI 文生图接口</a><!----></div><div data-v-37156b3d="" data-v-9eddef4e="" class="tiny-anchor-link nav-level-1" data-href="#uj67diz5qlfgvfhiartr3il"><a data-v-37156b3d="" class="tiny-anchor-link-title" href="https://fangzhou.wanjiedata.com/model-doc/1993597606384832519#uj67diz5qlfgvfhiartr3il">OpenAI 接口标准适用模型配置相关文档参考</a><!----></div></div></div></div></div></div></div></div><!-- Remove item from normal navigation flow, only available via hotkey --><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><ol data-sonner-toaster="" data-sonner-theme="light" class="toaster group pointer-events-auto" dir="ltr" tabindex="-1" data-theme="light" data-rich-colors="false" data-y-position="top" data-x-position="center" style="--front-toast-height: 0px; --width: 356px; --gap: 14px; --normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"></ol></section></div>
+  
+
+</body></html>

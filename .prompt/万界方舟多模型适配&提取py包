@@ -1,0 +1,3 @@
+1.同级目录生成对应的pyproject.toml ，通过uv管理依赖
+2.将代码中llm创建方式切换为万界方舟通用API，并支持三种模型切换，模型参数例如模型名称/URL/Key等提取到env文件
+3.万界方舟模型API文件路径：docs/wanjie_ark_api_doc.md 

@@ -1,0 +1,3 @@
+万界方舟多模型API测试脚本
+1.万界方舟模型API文件路径：docs/wanjie_ark_api_doc.md 
+2.通过curl命令测试万界方舟API，调试的模型是qwen3-32b/gemini-3-pro-preview/gpt-5.2 ，验证每个模型有效的访问方式，并总结成文档。

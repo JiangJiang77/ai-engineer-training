@@ -61,6 +61,24 @@
 	如果看到 `week05` 在列表中，则说明注册成功。
 	
 
+## 运行脚本示例
+
+`p20-mcp.py` 展示了 Function Calling 与 MCP 的基本流程（已内置本地 mock，可直接运行）： 
+
+```bash
+python p20-mcp.py
+```
+
+`p23-mcp-fastapi.py` 包含多个 FastAPI + MCP 示例，可以通过参数选择运行。
+
+```bash
+python p23-mcp-fastapi.py --example simple
+python p23-mcp-fastapi.py --example user_info
+python p23-mcp-fastapi.py --example separate --serve api
+python p23-mcp-fastapi.py --example separate --serve mcp
+python p23-mcp-fastapi.py --show-client-config
+```
+
 ## 运行 JupyterLab
 
 安装完成后，您可以运行 JupyterLab。

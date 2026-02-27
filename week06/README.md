@@ -77,3 +77,56 @@
 
 3.  **选择内核:**
     可以在 **Kernel > Change kernel** 菜单中看到并选择 **"AI工程化(week06)"**。这可以确保您的 notebook 在正确的项目环境中运行。
+
+## 运行 Python 脚本示例
+
+除了 Notebook 外，本项目还提供了一些可直接运行的 Python 脚本。
+
+### 运行 p03-mcpVS.DSL.py
+
+该脚本展示了如何使用 Python 处理退款逻辑以及对应的 DSL 描述。
+
+```bash
+# 确保已激活虚拟环境
+python p03-mcpVS.DSL.py
+```
+
+### 运行 p05-interVS.exterl.py
+
+该脚本展示了内部 DSL 和外部 DSL 的对比。
+
+```bash
+# 确保已激活虚拟环境
+python p05-interVS.exterl.py
+```
+
+### 运行 p06-5个特征.py
+
+该脚本列出了优秀 DSL 设计的 5 个关键特征及其对比示例。
+
+```bash
+# 确保已激活虚拟环境
+python p06-5个特征.py
+```
+
+### 运行 p07-常见场景.py
+
+该脚本展示了 DSL 在客服、风控、多 Agent 协作等领域的常见应用场景。
+
+```bash
+# 确保已激活虚拟环境
+python p07-常见场景.py
+```
+
+### 运行 P19-纵深防御体系.py
+
+该脚本由 `P19-纵深防御体系.ipynb` 提取而来，包含 4 个纵深防御组件示例：
+- 输入清洗（`InputSanitizer`）
+- Schema/角色权限限制（`SchemaRestrictor`）
+- SQL 模板化（`SQLTemplater`）
+- SQL 风险校验（`SQLValidator`）
+
+```bash
+# 确保已激活虚拟环境
+python P19-纵深防御体系.py
+```
