@@ -6,7 +6,7 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 from langchain.tools import tool
 
-from smart_customer_service.database import query_orders, update_order_status
+from smart_customer_service.repository import query_orders, update_order_status
 from smart_customer_service.utils import parse_relative_time, get_logger
 
 logger = get_logger(__name__)
@@ -87,8 +87,8 @@ def get_order_logistics(order_id: str) -> str:
         物流状态信息
     """
     try:
-        from smart_customer_service.database.crud import get_db_session
-        from smart_customer_service.database.models import Order
+        from smart_customer_service.repository.crud import get_db_session
+        from smart_customer_service.repository.models import Order
         
         with get_db_session() as session:
             order = session.query(Order).filter(Order.order_id == order_id).first()
@@ -195,7 +195,7 @@ def issue_invoice(order_id: str) -> str:
         发票开具结果
     """
     try:
-        from smart_customer_service.database import get_order_by_id, update_order_invoice_status
+        from smart_customer_service.repository import get_order_by_id, update_order_invoice_status
         
         logger.debug(f"根据订单ID获取订单({order_id})")
         order = get_order_by_id(order_id)

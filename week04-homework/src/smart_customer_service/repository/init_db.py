@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from smart_customer_service.config import settings
-from smart_customer_service.database.models import Base
-from smart_customer_service.database.crud import create_user, create_order, engine, get_user_by_username
+from smart_customer_service.repository.models import Base
+from smart_customer_service.repository.crud import create_user, create_order, engine, get_user_by_username
 
 
 def init_database():
@@ -26,8 +26,8 @@ def init_database():
 
 def load_mock_data():
     """加载模拟数据"""
-    from smart_customer_service.database.models import Order
-    from smart_customer_service.database.crud import get_db_session
+    from smart_customer_service.repository.models import Order
+    from smart_customer_service.repository.crud import get_db_session
     
     print("📦 开始插入模拟数据...")
     

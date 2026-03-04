@@ -2,7 +2,7 @@
 
 演示LangGraph工作流功能
 """
-from smart_customer_service.database import (
+from smart_customer_service.repository import (
     authenticate_user,
     get_user_by_username
 )

@@ -328,7 +328,7 @@ def logistics_query_node(state: CustomerServiceState) -> Dict[str, Any]:
         elif "keyword" in context:
             logger.debug(f"场景1.5: 仅关键字查询({context['keyword']})")
             # 查询所有包含该关键字的订单
-            from smart_customer_service.database import query_orders
+            from smart_customer_service.repository import query_orders
             all_orders = query_orders(user_id)
             
             # 筛选包含关键字的订单
@@ -379,7 +379,7 @@ def logistics_query_node(state: CustomerServiceState) -> Dict[str, Any]:
         # 场景4: 无条件列举所有订单
         else:
             logger.debug("场景4: 列举所有订单(无筛选条件)")
-            from smart_customer_service.database import query_orders
+            from smart_customer_service.repository import query_orders
             orders = query_orders(user_id)
             
             if not orders:

@@ -18,7 +18,7 @@ class ApiService:
 
     def _resolve_user_id(self, user_id: str) -> str:
         """解析用户ID, 如果输入是用户名则转换为 UUID"""
-        from smart_customer_service.database import get_user_by_username
+        from smart_customer_service.repository import get_user_by_username
         user = get_user_by_username(user_id)
         if user:
             logger.debug(f"[API] 解析用户: {user_id} -> {user['user_id']}")
@@ -75,7 +75,7 @@ class ApiService:
         # 检查数据库
         db_ok = False
         try:
-            from smart_customer_service.database import get_user_by_username
+            from smart_customer_service.repository import get_user_by_username
             # 尝试查询测试用户
             user = await asyncio.to_thread(get_user_by_username, "test_user")
             db_ok = user is not None

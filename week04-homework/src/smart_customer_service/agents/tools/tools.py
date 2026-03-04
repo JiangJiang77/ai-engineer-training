@@ -23,7 +23,7 @@ def create_customer_service_tools(user_id: str) -> list:
     def query_orders_tool(params_str: str) -> str:
         """查询用户订单。输入格式: keyword=商品名,date=时间 (两个参数都是可选的,也可以为空查询所有订单)。示例: keyword=笔记本,date=昨天 或 date=昨天 或 keyword=笔记本 或 空字符串"""
         try:
-            from smart_customer_service.database import query_orders
+            from smart_customer_service.repository import query_orders
             from smart_customer_service.utils import parse_relative_time
             
             # 解析参数
@@ -78,8 +78,8 @@ def create_customer_service_tools(user_id: str) -> list:
     def get_logistics_tool(order_id: str) -> str:
         """获取订单物流信息。输入: 订单号(完整的UUID格式)。示例: 33ca60d5-3d02-4df1-97f6-daba79a7e294"""
         try:
-            from smart_customer_service.database.crud import get_db_session
-            from smart_customer_service.database.models import Order
+            from smart_customer_service.repository.crud import get_db_session
+            from smart_customer_service.repository.models import Order
             
             order_id = order_id.strip()
             logger.debug(f"[Tool] GetLogistics: order_id={order_id}")
@@ -105,9 +105,9 @@ def create_customer_service_tools(user_id: str) -> list:
     def submit_refund_tool(order_id: str) -> str:
         """提交退款申请。输入: 订单号(完整的UUID格式)。注意: 只有可退款的订单才能提交退款"""
         try:
-            from smart_customer_service.database import update_order_status
-            from smart_customer_service.database.crud import get_db_session
-            from smart_customer_service.database.models import Order
+            from smart_customer_service.repository import update_order_status
+            from smart_customer_service.repository.crud import get_db_session
+            from smart_customer_service.repository.models import Order
             
             order_id = order_id.strip()
             logger.debug(f"[Tool] SubmitRefund: order_id={order_id}")
@@ -135,7 +135,7 @@ def create_customer_service_tools(user_id: str) -> list:
     def issue_invoice_tool(order_id: str) -> str:
         """开具发票。输入: 订单号(完整的UUID格式)。注意: 只有已签收的订单才能开具发票"""
         try:
-            from smart_customer_service.database import get_order_by_id, update_order_invoice_status
+            from smart_customer_service.repository import get_order_by_id, update_order_invoice_status
             
             order_id = order_id.strip()
             logger.debug(f"[Tool] IssueInvoice: order_id={order_id}")
