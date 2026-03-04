@@ -20,7 +20,7 @@ def setup_logger(name: str = "customer_service", level: int = None) -> logging.L
     # 如果没有指定level，从环境变量读取
     if level is None:
         import os
-        log_level_str = os.getenv("LOG_LEVEL", "INFO").upper()
+        log_level_str = os.getenv("LOG_LEVEL", "DEBUG").upper()
         level = getattr(logging, log_level_str, logging.INFO)
     
     logger = logging.getLogger(name)

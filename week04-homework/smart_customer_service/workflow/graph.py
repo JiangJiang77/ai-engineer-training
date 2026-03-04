@@ -3,7 +3,6 @@
 构建客服系统的工作流图
 """
 from langgraph.graph import StateGraph, END
-from langgraph.checkpoint.sqlite import SqliteSaver
 from langchain_core.messages import HumanMessage
 
 from smart_customer_service.workflow.state import CustomerServiceState, NodeName

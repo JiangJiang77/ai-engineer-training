@@ -3,8 +3,7 @@
 演示LangGraph工作流功能
 """
 from smart_customer_service.repository import (
-    authenticate_user,
-    get_user_by_username
+    authenticate_user
 )
 from smart_customer_service.workflow import run_workflow, create_workflow_graph, print_workflow_graph
 from smart_customer_service.utils import setup_logger
@@ -207,12 +206,6 @@ def interactive_mode_react(verbose: bool = True):
     # 创建Agent
     agent = CustomerServiceReActAgent(user_id, verbose=verbose)
     
-    # 打印ReAct Agent内部流程图
-    if hasattr(agent, 'agent_executor') and hasattr(agent.agent_executor, 'get_graph'):
-        print_workflow_graph(agent.agent_executor)
-    elif hasattr(agent, 'app') and hasattr(agent.app, 'get_graph'):
-        print_workflow_graph(agent.app)
-    
     print("\n💬 开始对话 (输入 'quit' 或 'exit' 退出)")
     print("-" * 60)
     
@@ -266,9 +259,9 @@ def demo_react(verbose: bool = True):
     
     # 测试场景
     test_cases = [
-        "查询我昨天买的笔记本电脑",
-        "我想退掉那个贵的订单",
-        "你们的退货政策是什么?"
+        "昨天买的手表发货了吗",
+        # "我想退掉那个贵的订单",
+        # "你们的退货政策是什么?"
     ]
     
     for i, question in enumerate(test_cases, 1):
@@ -286,4 +279,12 @@ def demo_react(verbose: bool = True):
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+
+    ## react模式
+    interactive_mode_react(True)
+    # demo_react(True)
+    # Workflow模式
+    # interactive_mode()
+    # demo_workflow()
+

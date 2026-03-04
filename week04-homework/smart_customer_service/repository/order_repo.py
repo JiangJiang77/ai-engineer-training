@@ -6,34 +6,13 @@ import uuid
 import bcrypt
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
-from contextlib import contextmanager
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session
 
-from smart_customer_service.config import settings
 from smart_customer_service.repository.models import Base, User, Conversation, Order
 from smart_customer_service.utils import get_logger
+from smart_customer_service.repository.db import get_db_session
 
 logger = get_logger(__name__)
-
-# 创建数据库引擎
-engine = create_engine(settings.get_database_url(), echo=False)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-@contextmanager
-def get_db_session():
-    """获取数据库会话(上下文管理器)"""
-    session = SessionLocal()
-    try:
-        yield session
-        session.commit()
-    except Exception:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-
 
 def get_order_by_id(order_id: str) -> Optional[Dict[str, Any]]:
     """根据订单ID获取订单
@@ -114,7 +93,7 @@ def query_orders(user_id: str, filters: Optional[Dict[str, Any]] = None, **kwarg
             query = query.filter(Order.can_invoice == filters["can_invoice"])
         
         orders = query.all()
-        logger.debug(f"[DB] 查询完成, 找到 {len(orders)} 个订单")
+        logger.debug(f"[DB] 查询完成, 找到 {len(orders)} 个符合条件的订单")
 
         if not orders and not filters:
             # 如果没找到订单且没加过滤条件，查一下数据库里到底有哪些 user_id 有订单

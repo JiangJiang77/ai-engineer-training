@@ -1,7 +1,6 @@
 """API 服务层逻辑"""
 import asyncio
 from typing import AsyncGenerator, Dict, Any
-import json
 from smart_customer_service.agents import CustomerServiceReActAgent
 from smart_customer_service.workflow import run_workflow
 from smart_customer_service.config import settings

@@ -171,7 +171,7 @@ cp .env.example .env
 ### 3. 初始化数据库
 
 ```bash
-.venv/bin/python -m smart_customer_service.database.init_db --load-mock-data
+.venv/bin/python -m smart_customer_service.repository.db --load-mock-data
 ```
 
 输出示例:
@@ -195,10 +195,10 @@ cp .env.example .env
 
 ```bash
 # 演示模式 - 运行3个测试用例
-.venv/bin/python -m smart_customer_service.main --mode react
+.venv/bin/python -m smart_customer_service.demo --mode react
 
 # 交互模式 - 与ReAct Agent实时对话
-.venv/bin/python -m smart_customer_service.main --mode react --interactive
+.venv/bin/python -m smart_customer_service.demo --mode react --interactive
 ```
 
 **ReAct Agent特点**:

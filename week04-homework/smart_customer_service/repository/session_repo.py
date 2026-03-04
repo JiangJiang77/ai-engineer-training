@@ -6,34 +6,13 @@ import uuid
 import bcrypt
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
-from contextlib import contextmanager
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session
 
-from smart_customer_service.config import settings
 from smart_customer_service.repository.models import Base, User, Conversation, Order
 from smart_customer_service.utils import get_logger
+from smart_customer_service.repository.db import get_db_session
 
 logger = get_logger(__name__)
-
-# 创建数据库引擎
-engine = create_engine(settings.get_database_url(), echo=False)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-@contextmanager
-def get_db_session():
-    """获取数据库会话(上下文管理器)"""
-    session = SessionLocal()
-    try:
-        yield session
-        session.commit()
-    except Exception:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-
 
 def create_user(username: str, password: str) -> Dict[str, Any]:
     """创建用户"""

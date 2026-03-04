@@ -98,7 +98,6 @@ class CustomerServiceReActAgent:
         logger.debug(f"ReAct Agent开始处理: input={user_input}")
         
         try:
-            # LangGraph的agent.invoke返回的是最终状态
             result = self.agent.invoke({
                 "messages": [("user", user_input)]
             })
@@ -115,6 +114,11 @@ class CustomerServiceReActAgent:
             iterations = sum(1 for msg in messages if hasattr(msg, 'type') and msg.type == 'ai')
             
             logger.debug(f"ReAct Agent处理完成: iterations={iterations}")
+
+            for i, msg in enumerate(messages):
+                msg_type = getattr(msg, "type", type(msg).__name__)
+                content = getattr(msg, "content", str(msg))
+                logger.debug(f"[ReAct Message {i}] type={msg_type} content={content}")
             
             return {
                 "output": output,
