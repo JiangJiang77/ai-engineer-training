@@ -10,8 +10,8 @@ from langchain_community.chat_models import ChatTongyi
 from smart_customer_service.workflow.state import CustomerServiceState, Intent, NodeName
 from smart_customer_service.config import settings
 from smart_customer_service.utils import parse_relative_time, get_logger
-from smart_customer_service.utils.ocr import extract_order_info_from_image
-from smart_customer_service.utils.asr import speech_to_text
+from smart_customer_service.client.ocr import extract_order_info_from_image
+from smart_customer_service.client.asr import speech_to_text
 from smart_customer_service.tools import (
     query_order_by_keyword,
     query_orders_by_date,
@@ -207,14 +207,7 @@ def intent_recognition_node(state: CustomerServiceState) -> Dict[str, Any]:
     intent = result.content.strip().lower()
     
     # 验证意图
-    valid_intents = [
-        Intent.LOGISTICS_QUERY,
-        Intent.REFUND_APPLICATION,
-        Intent.INVOICE_ISSUANCE,
-        Intent.POLICY_QUERY,
-        Intent.GENERAL_CHAT,
-        Intent.UNKNOWN
-    ]
+    valid_intents = Intent.codes()
     
     if intent not in valid_intents:
         logger.warning(f"LLM返回了无效意图: {intent}, 设置为unknown")
@@ -625,4 +618,3 @@ def policy_retrieval_node(state: CustomerServiceState) -> Dict[str, Any]:
             "response": f"抱歉,查询政策时出错: {str(e)}",
             "next_action": "end"
         }
-

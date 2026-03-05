@@ -17,20 +17,9 @@ def route_by_intent(state: CustomerServiceState) -> str:
     intent = state.get("intent")
     
     logger.debug(f"路由决策: 意图={intent}")
-    
-    if intent == Intent.LOGISTICS_QUERY:
-        return NodeName.LOGISTICS_QUERY
-    elif intent == Intent.REFUND_APPLICATION:
-        return NodeName.REFUND_PROCESSING
-    elif intent == Intent.INVOICE_ISSUANCE:
-        return NodeName.INVOICE_PROCESSING
-    elif intent == Intent.POLICY_QUERY:
-        return NodeName.POLICY_RETRIEVAL
-    elif intent == Intent.GENERAL_CHAT:
-        return NodeName.LLM_RESPONSE
-    else:
-        # 未知意图
-        return NodeName.LLM_RESPONSE
+
+    # 未知意图默认走通用回复
+    return Intent.route_for(intent)
 
 
 def should_continue(state: CustomerServiceState) -> str:

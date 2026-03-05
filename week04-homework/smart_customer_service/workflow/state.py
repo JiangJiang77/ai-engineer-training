@@ -36,17 +36,6 @@ class CustomerServiceState(TypedDict):
     need_more_info: bool
 
 
-# 意图常量
-class Intent:
-    """意图类型常量"""
-    LOGISTICS_QUERY = "logistics_query"  # 物流查询
-    REFUND_APPLICATION = "refund_application"  # 退款申请
-    INVOICE_ISSUANCE = "invoice_issuance"  # 发票开具
-    POLICY_QUERY = "policy_query"  # 政策查询
-    GENERAL_CHAT = "general_chat"  # 一般对话
-    UNKNOWN = "unknown"  # 未知意图
-
-
 # 节点名称常量
 class NodeName:
     """节点名称常量"""
@@ -59,3 +48,57 @@ class NodeName:
     POLICY_RETRIEVAL = "policy_retrieval"
     LLM_RESPONSE = "llm_response"
     END = "end"
+
+
+# 意图常量与元数据
+class Intent:
+    """意图类型常量（含code/name/desc/route元数据）"""
+
+    LOGISTICS_QUERY = "logistics_query"
+    REFUND_APPLICATION = "refund_application"
+    INVOICE_ISSUANCE = "invoice_issuance"
+    POLICY_QUERY = "policy_query"
+    GENERAL_CHAT = "general_chat"
+    UNKNOWN = "unknown"
+
+    META = {
+        LOGISTICS_QUERY: {
+            "name": "物流查询",
+            "desc": "查询订单物流、发货状态、订单列表",
+            "route": NodeName.LOGISTICS_QUERY,
+        },
+        REFUND_APPLICATION: {
+            "name": "退款申请",
+            "desc": "申请退款、退货、售后退款处理",
+            "route": NodeName.REFUND_PROCESSING,
+        },
+        INVOICE_ISSUANCE: {
+            "name": "发票开具",
+            "desc": "开票、发票信息处理",
+            "route": NodeName.INVOICE_PROCESSING,
+        },
+        POLICY_QUERY: {
+            "name": "政策查询",
+            "desc": "查询售后、物流、支付、质保等政策",
+            "route": NodeName.POLICY_RETRIEVAL,
+        },
+        GENERAL_CHAT: {
+            "name": "一般对话",
+            "desc": "问候、感谢、闲聊等非业务请求",
+            "route": NodeName.LLM_RESPONSE,
+        },
+        UNKNOWN: {
+            "name": "未知意图",
+            "desc": "无法准确识别意图，降级到通用回复",
+            "route": NodeName.LLM_RESPONSE,
+        },
+    }
+
+    @classmethod
+    def codes(cls) -> list[str]:
+        return list(cls.META.keys())
+
+    @classmethod
+    def route_for(cls, intent_code: Optional[str]) -> str:
+        meta = cls.META.get(intent_code or cls.UNKNOWN, cls.META[cls.UNKNOWN])
+        return str(meta["route"])
