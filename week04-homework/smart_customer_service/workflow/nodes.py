@@ -254,7 +254,7 @@ def intent_recognition_node(state: CustomerServiceState) -> Dict[str, Any]:
         logger.warning(f"LLM返回了无效意图: {intent}, 设置为unknown")
         intent = Intent.UNKNOWN
     
-    logger.info(f"识别意图: {intent}")
+    logger.debug(f"识别意图: {intent}")
     logger.debug("=" * 60)
     
     return {

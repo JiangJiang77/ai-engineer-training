@@ -8,7 +8,6 @@ from typing import List
 
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import HumanMessage
-from langgraph.graph.state import CompiledStateGraph
 
 from smart_customer_service.workflow.state import CustomerServiceState, NodeName
 from smart_customer_service.workflow.nodes import (
@@ -18,8 +17,8 @@ from smart_customer_service.workflow.nodes import (
     agent_tool_call_node,
     llm_response_node
 )
-from smart_customer_service.workflow.edges import route_by_intent
 from smart_customer_service.utils import get_logger
+from smart_customer_service.repository.session_repo import get_user_by_username
 
 logger = get_logger(__name__)
 
@@ -190,9 +189,11 @@ def print_workflow_graph(app):
 
 
 if __name__ == "__main__":
-    user_id = "455cc4d1-d8f5-42d5-bbae-1268a5136eeb"
     session_id = "session_id_1"
     user_name = "test_user"
+
+    user = get_user_by_username(user_name)
+    user_id = user['user_id']
 
     user_inputs = [
         "我要查昨天的订单",
