@@ -5,7 +5,6 @@
 
 from smart_customer_service.agents.tools import (
     query_order_by_keyword,
-    query_orders_by_date,
     get_order_logistics,
     query_refundable_orders,
     submit_refund,
@@ -15,7 +14,6 @@ from smart_customer_service.agents.tools import (
 
 __all__ = [
     "query_order_by_keyword",
-    "query_orders_by_date",
     "get_order_logistics",
     "query_refundable_orders",
     "submit_refund",

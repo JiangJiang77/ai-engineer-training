@@ -171,6 +171,7 @@ cp .env.example .env
 ### 3. 初始化数据库
 
 ```bash
+.venv/bin/python -m smart_customer_service.repository.db --init
 .venv/bin/python -m smart_customer_service.repository.db --load-mock-data
 ```
 

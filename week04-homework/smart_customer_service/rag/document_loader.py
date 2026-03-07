@@ -3,7 +3,8 @@
 加载政策文档和QA文档,并进行分块处理
 """
 import os
-from typing import List
+from pathlib import Path
+from typing import List, Optional
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
@@ -11,6 +12,30 @@ from langchain_core.documents import Document
 from smart_customer_service.utils import get_logger
 
 logger = get_logger(__name__)
+
+
+def _resolve_doc_path(doc_path: str) -> Optional[str]:
+    """解析文档路径.
+
+    优先级:
+    1) 传入绝对路径
+    2) 当前工作目录
+    3) 项目根目录(week04-homework)
+    """
+    path = Path(doc_path)
+    if path.is_absolute() and path.exists():
+        return str(path)
+
+    cwd_candidate = Path.cwd() / doc_path
+    if cwd_candidate.exists():
+        return str(cwd_candidate)
+
+    project_root = Path(__file__).resolve().parents[2]
+    root_candidate = project_root / doc_path
+    if root_candidate.exists():
+        return str(root_candidate)
+
+    return None
 
 
 def load_documents(
@@ -32,10 +57,13 @@ def load_documents(
     """
     documents = []
     
+    resolved_policy_path = _resolve_doc_path(policy_path)
+    resolved_qa_path = _resolve_doc_path(qa_path)
+
     # 加载 policy.md
-    if os.path.exists(policy_path):
-        logger.debug(f"加载政策文档: {policy_path}")
-        loader = TextLoader(policy_path, encoding="utf-8")
+    if resolved_policy_path:
+        logger.debug(f"加载政策文档: {resolved_policy_path}")
+        loader = TextLoader(resolved_policy_path, encoding="utf-8")
         policy_docs = loader.load()
         
         # 为文档添加元数据
@@ -49,9 +77,9 @@ def load_documents(
         logger.warning(f"政策文档不存在: {policy_path}")
     
     # 加载 QA.md
-    if os.path.exists(qa_path):
-        logger.debug(f"加载QA文档: {qa_path}")
-        loader = TextLoader(qa_path, encoding="utf-8")
+    if resolved_qa_path:
+        logger.debug(f"加载QA文档: {resolved_qa_path}")
+        loader = TextLoader(resolved_qa_path, encoding="utf-8")
         qa_docs = loader.load()
         
         # 为文档添加元数据

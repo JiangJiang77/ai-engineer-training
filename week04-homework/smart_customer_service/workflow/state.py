@@ -42,11 +42,14 @@ class NodeName:
     INPUT_PREPROCESSING = "input_preprocessing"
     INTENT_RECOGNITION = "intent_recognition"
     CONTEXT_MANAGEMENT = "context_management"
+    ORDERS_QUERY = "orders_query"
+    LOGISTICS_QUERY="logistics_query"
     LOGISTICS_QUERY = "logistics_query"
     REFUND_PROCESSING = "refund_processing"
     INVOICE_PROCESSING = "invoice_processing"
     POLICY_RETRIEVAL = "policy_retrieval"
     LLM_RESPONSE = "llm_response"
+    AGENT_TOOL_CALL = "agent_tool_call"
     END = "end"
 
 
@@ -54,17 +57,25 @@ class NodeName:
 class Intent:
     """意图类型常量（含code/name/desc/route元数据）"""
 
+    ORDERS_QUERY = "orders_query"
+    LOGISTICS_QUERY="logistics_query"
     LOGISTICS_QUERY = "logistics_query"
     REFUND_APPLICATION = "refund_application"
     INVOICE_ISSUANCE = "invoice_issuance"
     POLICY_QUERY = "policy_query"
     GENERAL_CHAT = "general_chat"
+    AGENT_TOOL_CALL = "agent_tool_call"
     UNKNOWN = "unknown"
 
     META = {
+        ORDERS_QUERY:{
+            "name": "订单查询",
+            "desc": "查询订单详细信息，例如订单号、订单状态等",
+            "route": NodeName.LOGISTICS_QUERY,
+        },
         LOGISTICS_QUERY: {
             "name": "物流查询",
-            "desc": "查询订单物流、发货状态、订单列表",
+            "desc": "查询订单物流、发货状态",
             "route": NodeName.LOGISTICS_QUERY,
         },
         REFUND_APPLICATION: {
@@ -87,6 +98,11 @@ class Intent:
             "desc": "问候、感谢、闲聊等非业务请求",
             "route": NodeName.LLM_RESPONSE,
         },
+        AGENT_TOOL_CALL: {
+            "name": "Agent工具调用",
+            "desc": "调用工具处理业务",
+            "route": NodeName.AGENT_TOOL_CALL,
+        },
         UNKNOWN: {
             "name": "未知意图",
             "desc": "无法准确识别意图，降级到通用回复",
@@ -102,3 +118,9 @@ class Intent:
     def route_for(cls, intent_code: Optional[str]) -> str:
         meta = cls.META.get(intent_code or cls.UNKNOWN, cls.META[cls.UNKNOWN])
         return str(meta["route"])
+
+    @classmethod
+    def name_for(cls, intent_code: Optional[str]) -> str:
+        """根据意图code返回中文name，未知时返回默认未知意图名称。"""
+        meta = cls.META.get(intent_code or cls.UNKNOWN, cls.META[cls.UNKNOWN])
+        return str(meta["name"])

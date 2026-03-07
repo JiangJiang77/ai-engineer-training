@@ -2,7 +2,6 @@
 from .tools import create_customer_service_tools
 from .order_tools import (
     query_order_by_keyword,
-    query_orders_by_date,
     get_order_logistics,
     query_refundable_orders,
     submit_refund,
@@ -13,7 +12,6 @@ from .order_tools import (
 __all__ = [
     "create_customer_service_tools",
     "query_order_by_keyword",
-    "query_orders_by_date",
     "get_order_logistics",
     "query_refundable_orders",
     "submit_refund",

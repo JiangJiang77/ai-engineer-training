@@ -3,26 +3,66 @@
 实现客服系统的各个处理节点
 """
 from typing import Dict, Any
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import AIMessage
+from langchain_core.output_parsers import JsonOutputParser
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_community.chat_models import ChatTongyi
+from pydantic import BaseModel, Field
 
-from smart_customer_service.workflow.state import CustomerServiceState, Intent, NodeName
+from smart_customer_service.workflow.state import CustomerServiceState, Intent
+from smart_customer_service.workflow.order_query_service import (
+    build_keyword,
+    fetch_orders_by_context,
+    format_orders,
+)
 from smart_customer_service.config import settings
 from smart_customer_service.utils import parse_relative_time, get_logger
 from smart_customer_service.client.ocr import extract_order_info_from_image
 from smart_customer_service.client.asr import speech_to_text
 from smart_customer_service.tools import (
-    query_order_by_keyword,
-    query_orders_by_date,
     get_order_logistics,
-    query_refundable_orders,
     submit_refund,
-    query_invoiceable_orders,
     issue_invoice
 )
+from smart_customer_service.agents.react_agent import CustomerServiceReActAgent
 
 logger = get_logger(__name__)
+
+
+class ContextExtractResult(BaseModel):
+    """上下文结构化提取结果"""
+
+    time_expr: str = Field(default="", description="时间表达, 如 今天/昨天/前天/上周/本周")
+    item: str = Field(default="", description="商品名称或品类, 如 手表/耳机")
+    brand: str = Field(default="", description="品牌名称, 如 华为/Apple")
+
+
+def _extract_context_by_llm(user_input: str) -> ContextExtractResult:
+    """先用LLM提取上下文信息(JSON结构)"""
+    parser = JsonOutputParser(pydantic_object=ContextExtractResult)
+    prompt = PromptTemplate(
+        template=(
+            "你是电商客服的上下文信息提取器。\n"
+            "请从用户输入中提取字段,并严格按 JSON 输出。\n"
+            "字段要求:\n"
+            "1) time_expr: 时间表达(例如 今天/昨天/前天/上周/本周), 没有则空字符串\n"
+            "2) item: 商品名或品类(例如 手表/耳机), 没有则空字符串\n"
+            "3) brand: 品牌名称(例如 华为/Apple), 没有则空字符串\n"
+            "{format_instructions}\n\n"
+            "用户输入: {user_input}"
+        ),
+        input_variables=["user_input"],
+        partial_variables={"format_instructions": parser.get_format_instructions()},
+    )
+
+    llm = ChatTongyi(
+        model=settings.LLM_MODEL,
+        temperature=0.1,
+        dashscope_api_key=settings.DASHSCOPE_API_KEY,
+    )
+    chain = prompt | llm | parser
+    result = chain.invoke({"user_input": user_input})
+    return ContextExtractResult(**result)
 
 
 def _extract_order_id(user_input: str) -> str:
@@ -180,17 +220,18 @@ def intent_recognition_node(state: CustomerServiceState) -> Dict[str, Any]:
     # 构建意图识别提示词
     prompt = ChatPromptTemplate.from_messages([
         ("system", """你是一个智能客服助手的意图识别模块。
-请根据用户输入,识别用户的意图。
-
-支持的意图类型:
-- logistics_query: 物流查询(查询订单、查看物流、发货状态、列举订单、我的订单等)
-- refund_application: 退款申请(退货、退款、申请退款等)
-- invoice_issuance: 发票开具(开发票、开具发票、要发票等)
-- policy_query: 政策查询(售后政策、退换货规则、物流政策、支付政策、质保政策、发票政策、发货时效等)
-- general_chat: 一般对话(问候、感谢等)
-- unknown: 未知意图(无法识别的请求)
-
-请只返回意图类型,不要有其他内容。"""),
+        请根据用户输入,识别用户的意图。
+        
+        支持的意图类型:
+        - orders_query: 订单查询
+        - logistics_query: 物流查询(查看物流、发货状态等)
+        - refund_application: 退款申请(退货、退款、申请退款等)
+        - invoice_issuance: 发票开具(开发票、开具发票、要发票等)
+        - policy_query: 政策查询(售后政策、退换货规则、物流政策、支付政策、质保政策、发票政策、发货时效等)
+        - general_chat: 一般对话(问候、感谢等)
+        - unknown: 未知意图(无法识别的请求)
+        
+        请只返回意图类型,不要有其他内容。"""),
         ("human", "{user_input}")
     ])
     
@@ -234,27 +275,50 @@ def context_management_node(state: CustomerServiceState) -> Dict[str, Any]:
     
     context = state.get("context", {})
     user_input = state["user_input"]
-    
-    # 解析时间表达
-    time_keywords = ["昨天", "今天", "前天", "明天", "上周", "本周"]
-    for keyword in time_keywords:
-        if keyword in user_input:
-            try:
-                parsed_time = parse_relative_time(keyword)
-                context["date"] = parsed_time.date()
-                context["date_str"] = keyword
-                logger.debug(f"✓ 解析时间: {keyword} -> {context['date']}")
-            except Exception as e:
-                logger.error(f"✗ 时间解析失败: {e}")
-    
-    # 提取关键字(优化:支持部分匹配)
-    keywords = ["年货", "礼品", "大礼包", "手表", "电脑", "耳机", "笔记本"]
-    for keyword in keywords:
-        if keyword in user_input:
-            context["keyword"] = keyword
-            logger.debug(f"✓ 提取关键字: {keyword}")
-            break
-    
+
+    # 1) 优先用LLM结构化提取上下文
+    extracted = ContextExtractResult()
+    try:
+        extracted = _extract_context_by_llm(user_input)
+        logger.debug(
+            "LLM上下文提取成功: time_expr=%s, item=%s, brand=%s",
+            extracted.time_expr,
+            extracted.item,
+            extracted.brand,
+        )
+    except Exception as e:
+        logger.error(f"LLM上下文提取失败, 将回退规则提取: {e}")
+
+    # 2) 时间表达 -> time解析工具
+    if extracted.time_expr:
+        try:
+            parsed_time = parse_relative_time(extracted.time_expr)
+            context["date"] = parsed_time.date()
+            context["date_str"] = extracted.time_expr
+            logger.debug(f"✓ 解析时间: {extracted.time_expr} -> {context['date']}")
+        except Exception as e:
+            logger.error(f"✗ LLM时间解析失败: {e}")
+
+    # 3) item/brand 结构化结果写入上下文
+    if extracted.item:
+        context["item"] = extracted.item
+    if extracted.brand:
+        context["brand"] = extracted.brand
+
+    # 兼容现有工具参数: keyword 优先使用 item, 否则 brand
+    if extracted.item:
+        context["keyword"] = extracted.item
+    elif extracted.brand:
+        context["keyword"] = extracted.brand
+
+    if "keyword" not in context:
+        keywords = ["年货", "礼品", "大礼包", "手表", "电脑", "耳机", "笔记本"]
+        for keyword in keywords:
+            if keyword in user_input:
+                context["keyword"] = keyword
+                logger.debug(f"✓ 规则提取关键字: {keyword}")
+                break
+
     # 提取订单号
     order_id = _extract_order_id(user_input)
     if order_id:
@@ -264,18 +328,27 @@ def context_management_node(state: CustomerServiceState) -> Dict[str, Any]:
     # 判断是否需要更多信息
     intent = state.get("intent")
     need_more_info = False
-    
+
     if intent == Intent.LOGISTICS_QUERY:
-        # 物流查询:如果没有任何筛选条件,也可以列举所有订单
-        # 所以不需要追问
-        need_more_info = False
-        logger.debug("物流查询: 可以无条件列举订单,不需要追问")
+        # 订单查询: order_id/keyword/item/brand 全空时需要追问
+        need_more_info = not any(
+            [
+                context.get("order_id"),
+                context.get("keyword"),
+                context.get("item"),
+                context.get("brand"),
+            ]
+        )
+        logger.debug(
+            "物流查询: %s",
+            "关键信息缺失,需要追问" if need_more_info else "已提供查询条件,可继续处理",
+        )
     elif intent == Intent.REFUND_APPLICATION:
-        # 退款需要订单号(可以后续查询列表)
-        pass
+        # 退款必须提供订单号
+        need_more_info = not bool(context.get("order_id"))
     elif intent == Intent.INVOICE_ISSUANCE:
-        # 发票需要订单号(可以后续查询列表)
-        pass
+        # 发票必须提供订单号
+        need_more_info = not bool(context.get("order_id"))
     
     logger.debug(f"上下文提取完成: {context}")
     logger.debug(f"需要更多信息: {need_more_info}")
@@ -295,106 +368,65 @@ def logistics_query_node(state: CustomerServiceState) -> Dict[str, Any]:
     logger.debug(f"上下文: {state['context']}")
     logger.debug("=" * 60)
     
-    # 订单状态中文映射
-    STATUS_MAP = {
-        "pending": "待处理",
-        "shipped": "已发货",
-        "delivered": "已签收",
-        "cancelled": "已取消"
-    }
-    
     context = state["context"]
     user_id = state["user_id"]
-    
+    keyword = build_keyword(context)
+    order_date = context.get("date")
+
     try:
-        # 场景1: 有关键字和日期
-        if "keyword" in context and "date" in context:
-            logger.debug(f"场景1: 关键字({context['keyword']}) + 日期({context.get('date_str')})")
-            result = query_order_by_keyword.invoke({
-                "user_id": user_id,
-                "keyword": context["keyword"],
-                "date_str": context.get("date_str", "昨天")
-            })
-            response = f"查询结果:\n{result}"
-        
-        # 场景1.5: 只有关键字(新增)
-        elif "keyword" in context:
-            logger.debug(f"场景1.5: 仅关键字查询({context['keyword']})")
-            # 查询所有包含该关键字的订单
-            from smart_customer_service.repository import query_orders
-            all_orders = query_orders(user_id)
-            
-            # 筛选包含关键字的订单
-            keyword = context["keyword"]
-            filtered_orders = [
-                order for order in all_orders 
-                if keyword in order.get("order_name", "")
-            ]
-            
-            if not filtered_orders:
-                response = f"未找到包含\"{keyword}\"的订单。"
-            else:
-                # 格式化订单列表
-                order_list = []
-                for order in filtered_orders:
-                    order_date = order["order_date"]
-                    if hasattr(order_date, 'strftime'):
-                        order_date = order_date.strftime("%Y-%m-%d")
-                    # 显示完整订单号,状态翻译成中文
-                    status_cn = STATUS_MAP.get(order["status"], order["status"])
-                    order_list.append(
-                        f"- 订单号: {order['order_id']}\n"
-                        f"  商品: {order['order_name']}\n"
-                        f"  日期: {order_date}\n"
-                        f"  状态: {status_cn}\n"
-                        f"  物流: {order.get('logistics_status', '暂无物流信息')}\n"
-                        f"  发票: {order.get('invoice_status', '未开票')}"
-                    )
-                response = f"找到 {len(filtered_orders)} 个包含\"{keyword}\"的订单:\n\n" + "\n\n".join(order_list)
-        
-        # 场景2: 只有日期
-        elif "date" in context:
-            logger.debug(f"场景2: 日期查询({context.get('date_str')})")
-            result = query_orders_by_date.invoke({
-                "user_id": user_id,
-                "date_str": context.get("date_str", "昨天")
-            })
-            response = f"查询结果:\n{result}"
-        
-        # 场景3: 有订单号
-        elif "order_id" in context:
-            logger.debug(f"场景3: 订单号查询({context['order_id']})")
+        # 场景0: 有订单号时优先精确查询
+        if context.get("order_id"):
+            logger.debug(f"场景0: 订单号精确查询({context['order_id']})")
             result = get_order_logistics.invoke({
                 "order_id": context["order_id"]
             })
             response = result
-        
-        # 场景4: 无条件列举所有订单
+
         else:
-            logger.debug("场景4: 列举所有订单(无筛选条件)")
-            from smart_customer_service.repository import query_orders
-            orders = query_orders(user_id)
-            
-            if not orders:
-                response = "您还没有任何订单。"
-            else:
-                # 格式化订单列表
-                order_list = []
-                for order in orders:
-                    order_date = order["order_date"]
-                    if hasattr(order_date, 'strftime'):
-                        order_date = order_date.strftime("%Y-%m-%d")
-                    # 显示完整订单号,状态翻译成中文
-                    status_cn = STATUS_MAP.get(order["status"], order["status"])
-                    order_list.append(
-                        f"- 订单号: {order['order_id']}\n"
-                        f"  商品: {order['order_name']}\n"
-                        f"  日期: {order_date}\n"
-                        f"  状态: {status_cn}\n"
-                        f"  发票: {order.get('invoice_status', '未开票')}"
+            # 场景1: 关键字 + 日期
+            if keyword and order_date:
+                logger.debug(f"场景1: 关键字({keyword}) + 日期({context.get('date_str')})")
+                orders = fetch_orders_by_context(user_id, context)
+                if not orders:
+                    response = f"未找到 {context.get('date_str', '该日期')} 包含\"{keyword}\"的订单。"
+                else:
+                    response = (
+                        f"找到 {len(orders)} 个 {context.get('date_str', '该日期')} "
+                        f"包含\"{keyword}\"的订单:\n\n" + format_orders(orders)
                     )
-                response = f"您共有 {len(orders)} 个订单:\n\n" + "\n\n".join(order_list)
-        
+
+            # 场景2: 仅关键字
+            elif keyword:
+                logger.debug(f"场景2: 仅关键字查询({keyword})")
+                orders = fetch_orders_by_context(
+                    user_id, context, include_date=False, include_keyword=True
+                )
+                if not orders:
+                    response = f"未找到包含\"{keyword}\"的订单。"
+                else:
+                    response = f"找到 {len(orders)} 个包含\"{keyword}\"的订单:\n\n" + format_orders(orders)
+
+            # 场景3: 仅日期
+            elif order_date:
+                logger.debug(f"场景3: 日期查询({context.get('date_str')})")
+                orders = fetch_orders_by_context(
+                    user_id, context, include_date=True, include_keyword=False
+                )
+                if not orders:
+                    response = f"{context.get('date_str', '该日期')}没有订单。"
+                else:
+                    response = (
+                        f"{context.get('date_str', '该日期')}共有 {len(orders)} 个订单:\n\n"
+                        + format_orders(orders)
+                    )
+
+            # 场景4: 无筛选条件，列举所有订单
+            else:
+                logger.debug("场景4: 无筛选条件，返回追问提示")
+                response = (
+                    "请补充提前以下信息（至少一项）：时间、商品名、品牌名或订单号。"
+                )
+
         logger.debug(f"物流查询结果(前100字符): {response[:100]}...")
         logger.debug("=" * 60)
         
@@ -426,11 +458,21 @@ def refund_processing_node(state: CustomerServiceState) -> Dict[str, Any]:
             })
             response = result
         else:
-            # 查询可退款订单
-            result = query_refundable_orders.invoke({
-                "user_id": user_id
-            })
-            response = f"可退款订单:\n{result}\n\n请提供订单号以继续退款申请。"
+            # 查询可退款订单(支持关键字过滤)
+            orders = fetch_orders_by_context(
+                user_id,
+                context,
+                include_keyword=True,
+                include_date=False,
+                extra_filters={"can_refund": 1},
+            )
+            if not orders:
+                response = "没有可退款的订单。"
+            else:
+                response = (
+                    f"可退款订单:\n{format_orders(orders)}\n\n"
+                    "请提供订单号以继续退款申请。"
+                )
         
         logger.debug(f"退款处理结果: {response[:100]}...")
         
@@ -464,12 +506,20 @@ def invoice_processing_node(state: CustomerServiceState) -> Dict[str, Any]:
             response = result
         else:
             # 查询可开票订单
-            keyword = context.get("keyword")
-            result = query_invoiceable_orders.invoke({
-                "user_id": user_id,
-                "keyword": keyword
-            })
-            response = f"可开票订单:\n{result}\n\n请提供订单号以继续开具发票。"
+            orders = fetch_orders_by_context(
+                user_id,
+                context,
+                include_keyword=True,
+                include_date=False,
+                extra_filters={"can_invoice": 1, "status": "delivered"},
+            )
+            if not orders:
+                response = "没有可开票的订单(只有已签收的订单才能开具发票)。"
+            else:
+                response = (
+                    f"可开票订单:\n{format_orders(orders)}\n\n"
+                    "请提供订单号以继续开具发票。"
+                )
         
         logger.debug(f"发票处理结果: {response[:100]}...")
         
@@ -483,6 +533,30 @@ def invoice_processing_node(state: CustomerServiceState) -> Dict[str, Any]:
         return {
             "response": f"处理发票时出错: {str(e)}",
             "next_action": "end"
+        }
+
+
+def agent_tool_call_node(state: CustomerServiceState) -> Dict[str, Any]:
+    """Agent工具调用节点
+
+    使用ReAct Agent执行工具调用并生成最终回复。
+    """
+    logger.debug("Agent工具调用节点")
+    user_id = state["user_id"]
+
+    try:
+        agent = CustomerServiceReActAgent(user_id=user_id, verbose=False)
+        result = agent.run_by_state(state)
+        response = result.get("output", "抱歉,我无法处理您的请求。")
+        return {
+            "response": response,
+            "next_action": "end",
+        }
+    except Exception as e:
+        logger.error(f"Agent工具调用失败: {e}", exc_info=True)
+        return {
+            "response": f"抱歉,处理您的请求时出错: {str(e)}",
+            "next_action": "end",
         }
 
 
