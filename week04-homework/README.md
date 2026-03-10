@@ -1,5 +1,7 @@
 # 第四周作业
 
+作业代码目录说明: [smart_customer_service](./smart_customer_service)
+
 ## 任务
 构建一个小型多轮对话智能客服,支持工具调用以及模型与插件的热更新。
 
@@ -38,4 +40,3 @@ https://github.com/your-username/ai-engineer-training/tree/main/week04-homework
 ```
 
 ---
-
