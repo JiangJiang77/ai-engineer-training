@@ -24,4 +24,5 @@ dependencies = [
     "sse-starlette>=2.1.0",
     "langgraph-checkpoint-sqlite>=2.0.0",
     "websockets>=13.0.0",
+    "reportlab>=4.2.0",
 ]

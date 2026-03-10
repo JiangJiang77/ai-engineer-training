@@ -1,6 +1,7 @@
 
 import os
 import operator
+import json
 from dotenv import load_dotenv
 from typing import Annotated, Sequence, Literal, TypedDict
 from langchain_community.chat_models import ChatTongyi
@@ -9,9 +10,10 @@ from langchain_core.messages import BaseMessage, AIMessage, HumanMessage
 from langchain.agents import AgentState
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode
+from langgraph.checkpoint.memory import InMemorySaver
 from urllib3 import response
 
-from .tool import default_tools
+from .services import ServiceManager
 
 
 load_dotenv()
@@ -23,8 +25,8 @@ class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
 
 class GraphManager:
-    def __init__(self):
-        self._llm = self._create_llm()
+    def __init__(self, service_manager: ServiceManager):
+        self._service_manager = service_manager
         self._compiled_graph= self._build_graph()
 
 
@@ -35,8 +37,9 @@ class GraphManager:
         # chatbot
         workflow.add_node("intent_recognition",self._intent_recognition)
         workflow.add_node("ask_order_id",self._ask_order_id)
+        workflow.add_node("ask_invoice_info",self._ask_invoice_info)
         workflow.add_node("tool_agent", self._call_tool_agent)
-        tools = ToolNode(tools=default_tools)
+        tools = ToolNode(tools=self._service_manager.get_tools())
         workflow.add_node("tools", tools)
         workflow.add_node("chat_bot",self._call_chat_bot)
 
@@ -47,6 +50,7 @@ class GraphManager:
         {
             "tool_agent": "tool_agent",
             "ask_order_id": "ask_order_id",
+            "ask_invoice_info": "ask_invoice_info",
         })
         ## ask_order_id tool_agent
 
@@ -63,24 +67,11 @@ class GraphManager:
         workflow.add_edge("tools", "chat_bot")
         workflow.add_edge("chat_bot", END)
 
-        compiled_graph = workflow.compile()
+        checkpointer = InMemorySaver()
+        compiled_graph = workflow.compile(checkpointer=checkpointer)
         print("✅ LangGraph graph built/rebuilt successfully!")
-
         # print_workflow_graph(compiled_graph)
-
         return compiled_graph
-
-    def _create_llm(self,
-                    model_name: str | None = None,
-                    temperature: float = 0,
-                    steaming: bool = False ):
-        if not os.environ.get("DASHSCOPE_API_KEY"):
-            print("⚠️ 警告: DASHSCOPE_API_KEY 环境变量未设置！")
-        return ChatTongyi(
-            model_name = model_name or "qwen-plus",
-            temperature = temperature or 0,
-            streaming = steaming or True,
-        )
 
     def _intent_recognition(self, user_input: str):
         """
@@ -94,15 +85,17 @@ class GraphManager:
                 支持的意图类型:
                 - orders_query: 订单查询
                 - policy_query: 政策查询(售后政策、退换货规则、物流政策、支付政策、质保政策、发票政策、发货时效等)
+                - generate_invoice: 开具发票
                 - unknown: 未知意图(无法识别的请求)
                 
                 请只返回意图类型,不要有其他内容。"""),
             ("human", "{user_input}")
         ])
-        chain = prompt | self._llm
+        chain = prompt | self._service_manager.get_llm()
         result = chain.invoke({
                 "user_input": user_input
             })
+        print(f"意图识别结果: {result.content}")
         return {"messages": [AIMessage(content=result.content)],"intent": result.content}
 
 
@@ -121,7 +114,7 @@ class GraphManager:
             """),
             ("human", "{user_input}")
         ])
-        chain = prompt | self._llm
+        chain = prompt | self._service_manager.get_llm()
         result = chain.invoke({
             "user_input": user_input
         })
@@ -134,6 +127,12 @@ class GraphManager:
         """
         return {"messages": [AIMessage(content="请提供订单号")]}
 
+    def _ask_invoice_info(self,state: AgentState):
+        """
+        询问发票信息
+        """
+        return {"messages": [AIMessage(content="请提供发票信息(订单号、姓名、税号)")]}
+
     def _router_intent(self,state: AgentState):
         """
         路由意图
@@ -145,6 +144,12 @@ class GraphManager:
             if user_input and order_id:
                 return "tool_agent"
             return "ask_order_id"
+        elif intent == "generate_invoice":
+            user_input = self._get_latest_user_input(state)
+            invoice_info = self._extra_invoice_info(user_input)
+            if user_input and invoice_info.get("order_id"):
+                return "tool_agent"
+            return "ask_invoice_info"
         return "tool_agent"
     
     def _router_order(self,state: AgentState):
@@ -179,42 +184,128 @@ class GraphManager:
             5. 如果实在无法识别,返回 "none" """),
                 ("human", "{user_input}")
             ])
-        chain = prompt | self._llm
+        chain = prompt | self._service_manager.get_llm()
         result = chain.invoke({
                 "user_input": user_input
             })
         order_id = result.content.strip()
-        if order_id == "无法提取订单号":
+        if order_id.lower() in {"none", "无法提取订单号", ""}:
             return None
         print(f"提取到的订单号: {order_id}")
         return order_id
+
+
+    def _extra_invoice_info(self, user_input: str):
+        """
+        发票信息提取
+        """
+        import re
+
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", """
+            你是一个发票信息提取器。请从用户输入中提取: order_id, name, tax_number。
+
+            输出要求(必须全部满足):
+            1. 只输出一个 JSON 对象,不要 markdown、不要解释、不要多余文本。
+            2. JSON 键固定为 "order_id"、"name"、"tax_number"。
+            3. 值类型: 字符串或 null。无法确认时使用 null。
+            4. 不要臆造信息,缺失就填 null。
+            5. order_id 优先提取 UUID(8-4-4-4-12)；若有多个候选,选择最像订单号而非快递单号的那个。
+            6. name 仅提取购方名称(个人/公司),不要混入地址电话。
+            7. tax_number 仅提取纳税人识别号,保留字母数字,去掉空格。
+
+            示例:
+            {{"order_id":"33ca60d5-3d02-4df1-97f6-daba79a7e294","name":"张三","tax_number":"91330100MA2XXXXXX"}}
+            {{"order_id":null,"name":"个人","tax_number":null}}
+            """),
+                ("human", "{user_input}")
+            ])
+        chain = prompt | self._service_manager.get_llm()
+        result = chain.invoke({
+                "user_input": user_input
+            })
+        raw_content = result.content.strip()
+
+        # 兼容模型偶发返回 ```json ... ``` 或夹带说明文本
+        candidate = raw_content.replace("```json", "").replace("```", "").strip()
+        match = re.search(r"\{[\s\S]*\}", candidate)
+        if match:
+            candidate = match.group(0)
+
+        try:
+            parsed = json.loads(candidate)
+        except json.JSONDecodeError:
+            print(f"发票信息提取结果无法解析为JSON: {raw_content}")
+            return None
+
+        invoice_info = {
+            "order_id": parsed.get("order_id"),
+            "name": parsed.get("name"),
+            "tax_number": parsed.get("tax_number"),
+        }
+
+        for key, value in invoice_info.items():
+            if isinstance(value, str):
+                normalized = value.strip()
+                if normalized.lower() in {"none", "null", ""}:
+                    invoice_info[key] = None
+                else:
+                    invoice_info[key] = normalized
+
+        print(f"提取到的发票信息: {invoice_info}")
+        return invoice_info
     
     def _call_tool_agent(self,state: AgentState):
         """
         工具代理
         """
-        model_with_tools = self._llm.bind_tools(default_tools)
+        model_with_tools = self._service_manager.get_llm().bind_tools(self._service_manager.get_tools())
         response = model_with_tools.invoke(state['messages'])
+        print(f"工具调用结果: {response.tool_calls[0]['name']}")
         return {"messages": [response]}
 
     def _should_continue(self,state: AgentState):
         """
         判断是否继续
         """
-        last_message = state["messages"][-1].content
+        last_message = state["messages"][-1]
         if isinstance(last_message, AIMessage) and last_message.tool_calls:
             return "tools"
 
         return "chat_bot"
 
-    def run_workflow(self, user_input: str):
+    def run_workflow(self, user_input: str, config: dict = None, stream_mode: bool = False):
         """
         运行工作流
         """
         # return self._compiled_graph.invoke({"messages": [HumanMessage(content=user_input)]})
-        for event in self._compiled_graph.stream({"messages": [HumanMessage(content=user_input)]}):
+        for event in self._compiled_graph.stream(
+            {"messages": [HumanMessage(content=user_input)]}, 
+            config=config, stream_mode=stream_mode):
             for value in event.values():
                 print("Assistant:", value["messages"][-1].content)
+    
+    def invoke_workflow(self, user_input: str, config: dict = None):
+        """
+        运行工作流
+        """
+        result = self._compiled_graph.invoke({"messages": [HumanMessage(content=user_input)]}, config=config)
+        # final_response = next(
+        #     (m for m in reversed(result["messages"]) if isinstance(m, AIMessage) and not m.tool_calls),
+        #     None,
+        # )
+        # return final_response.content if final_response else None
+
+        messages = result['messages']
+        for msg in reversed(messages):
+            if isinstance(msg, AIMessage) and not msg.tool_calls:
+               return msg.content
+        return None
+
+    def reload_graph(self):
+        self._compiled_graph = self._build_graph()
+        print("✅ LangGraph Reload成功!")
+        print_workflow_graph(self._compiled_graph)
 
 
 def print_workflow_graph(compiled_graph):
@@ -249,7 +340,7 @@ def print_workflow_graph(compiled_graph):
 
 
 if __name__ == "__main__":
-    graph = GraphManager()
+    graph = GraphManager(ServiceManager())
     # user_input = "你好，我想查询订单"
     user_input = "你好，我想查询订单,订单号是 dcc38dae-fe72-4e65-a419-7d87d29d603e"
     response = graph.run_workflow(user_input)
