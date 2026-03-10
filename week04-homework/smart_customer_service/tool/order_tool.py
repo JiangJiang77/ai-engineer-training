@@ -7,7 +7,7 @@ from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from reportlab.pdfgen import canvas
 from langchain.tools import tool
 
-from langgraph_demo.order_repo import get_order_by_id
+from smart_customer_service.order_repo import get_order_by_id
 
 @tool
 def get_order_detail(order_id: str) -> str:

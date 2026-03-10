@@ -319,13 +319,13 @@ def print_workflow_graph(compiled_graph):
         # 保存为图片
         try:
             # 确保media目录存在
-            media_dir = "langgraph_demo"
+            media_dir = "smart_customer_service"
             if not os.path.exists(media_dir):
                 os.makedirs(media_dir)
             
             # 使用 draw_mermaid_png 获取图片字节流
             png_data = compiled_graph.get_graph().draw_mermaid_png()
-            file_path = os.path.join(media_dir, "langgraph_demo_workflow.png")
+            file_path = os.path.join(media_dir, "smart_customer_service_workflow.png")
             
             with open(file_path, "wb") as f:
                 f.write(png_data)

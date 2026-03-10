@@ -2,11 +2,11 @@ import unittest
 
 from langchain_core.messages import AIMessage, HumanMessage
 
-from tests.langgraph_demo._stub_reportlab import install_reportlab_stub
+from tests.smart_customer_service._stub_reportlab import install_reportlab_stub
 
 install_reportlab_stub()
 
-from langgraph_demo.graph import GraphManager
+from smart_customer_service.graph import GraphManager
 
 
 class TestGraphRouting(unittest.TestCase):

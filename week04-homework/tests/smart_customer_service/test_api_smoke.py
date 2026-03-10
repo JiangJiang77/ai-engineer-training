@@ -3,11 +3,11 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
-from tests.langgraph_demo._stub_reportlab import install_reportlab_stub
+from tests.smart_customer_service._stub_reportlab import install_reportlab_stub
 
 install_reportlab_stub()
 
-from langgraph_demo import api as api_module
+from smart_customer_service import api as api_module
 
 
 class TestLanggraphDemoAPI(unittest.TestCase):
