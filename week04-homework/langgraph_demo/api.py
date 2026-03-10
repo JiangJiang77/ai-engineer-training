@@ -75,7 +75,7 @@ async def hot_update(request: HotUpdateRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"热更新失败: {e}")
 
-# 如果你想通过 python -m smart_customer_service.api 运行
+# 如果你想通过 python -m smart_customer_service_extend.api 运行
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

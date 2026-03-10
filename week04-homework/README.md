@@ -26,7 +26,7 @@
 
 ## 如何提交作业
 请fork本仓库,然后在以下目录分别完成编码作业:
-- [week04-homework/smart_customer_service](./smart_customer_service)
+- [week04-homework/smart_customer_service_extend](./smart_customer_service_extend)
 
 其中:
 - main.py是作业的入口

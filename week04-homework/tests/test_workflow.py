@@ -4,8 +4,8 @@
 """
 import unittest
 from datetime import datetime, timedelta
-from smart_customer_service.workflow import run_workflow
-from smart_customer_service.database import get_user_by_username
+from smart_customer_service_extend.workflow import run_workflow
+from smart_customer_service_extend.database import get_user_by_username
 
 
 class TestWorkflow(unittest.TestCase):

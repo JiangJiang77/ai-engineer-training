@@ -1,10 +1,10 @@
 """测试订单去重和业务规则"""
 import unittest
 from datetime import datetime, timedelta
-from smart_customer_service.database import (
+from smart_customer_service_extend.database import (
     query_orders, get_user_by_username, create_order
 )
-from smart_customer_service.tools import (
+from smart_customer_service_extend.tools import (
     query_invoiceable_orders,
     query_refundable_orders
 )

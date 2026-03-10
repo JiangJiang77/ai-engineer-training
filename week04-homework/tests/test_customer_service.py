@@ -4,11 +4,11 @@
 """
 import unittest
 from datetime import datetime, timedelta
-from smart_customer_service.database import (
+from smart_customer_service_extend.database import (
     create_user, authenticate_user, get_user_by_username,
     query_orders, create_order, update_order_status
 )
-from smart_customer_service.tools import (
+from smart_customer_service_extend.tools import (
     query_order_by_keyword,
     query_orders_by_date,
     get_order_logistics,
@@ -17,7 +17,7 @@ from smart_customer_service.tools import (
     query_invoiceable_orders,
     issue_invoice
 )
-from smart_customer_service.utils import parse_relative_time
+from smart_customer_service_extend.utils import parse_relative_time
 
 
 class TestDatabaseOperations(unittest.TestCase):

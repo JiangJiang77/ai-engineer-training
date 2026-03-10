@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 
-from smart_customer_service.repository.models import Base, User, Conversation, Order
-from smart_customer_service.utils import get_logger
-from smart_customer_service.repository.db import get_db_session
+from smart_customer_service_extend.repository.models import Base, User, Conversation, Order
+from smart_customer_service_extend.utils import get_logger
+from smart_customer_service_extend.repository.db import get_db_session
 
 logger = get_logger(__name__)
 

@@ -3,8 +3,8 @@
 展示如何通过 thread_id 实现对话记忆，且无需修改原有代码逻辑。
 """
 from langchain_core.messages import HumanMessage
-from smart_customer_service.workflow.persistent_graph import create_persistent_workflow_graph
-from smart_customer_service.database import authenticate_user
+from smart_customer_service_extend.workflow.persistent_graph import create_persistent_workflow_graph
+from smart_customer_service_extend.database import authenticate_user
 
 def run_persistent_demo():
     print("\n" + "=" * 60)

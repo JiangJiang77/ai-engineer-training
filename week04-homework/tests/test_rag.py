@@ -5,7 +5,7 @@
 import unittest
 import os
 import shutil
-from smart_customer_service.rag import load_documents, VectorStoreManager
+from smart_customer_service_extend.rag import load_documents, VectorStoreManager
 
 
 class TestRAGModule(unittest.TestCase):

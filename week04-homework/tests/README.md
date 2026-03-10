@@ -5,7 +5,7 @@
 ### 1. 确保数据库已初始化
 
 ```bash
-.venv/bin/python -m smart_customer_service.database.init_db --load-mock-data
+.venv/bin/python -m smart_customer_service_extend.database.init_db --load-mock-data
 ```
 
 ### 2. 运行测试
