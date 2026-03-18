@@ -1,112 +1,213 @@
-import asyncio
-import os
-import sys
-from typing import List
-from langchain_mcp_adapters.client import MultiServerMCPClient
-from langchain_mcp_adapters.tools import load_mcp_tools
-from .graph import create_workflow
-from .agents import State
+from pathlib import Path
+from typing import Optional
+
+from langgraph.checkpoint.sqlite import SqliteSaver
+from langgraph.types import Command
+
+from multi_agent.config import SETTINGS
+from multi_agent.graph import build_graph
+from multi_agent.log import get_logger, setup_logging
+from multi_agent.state import WriterState, build_initial_state
+
+logger = get_logger(__name__)
 
 
-async def main():
-    # 配置 MCP 客户端 (参考 week05 样式)
-    # 使用 python 运行本地 mcp_server.py
-    server_script = os.path.join(os.path.dirname(__file__), "mcp_server.py")
 
-    client = MultiServerMCPClient(
-        {
-            "research_server": {
-                "command": "python",
-                "args": [server_script, "research"],
-                "transport": "stdio",
-            },
-            "style_server": {
-                "command": "python",
-                "args": [server_script, "style"],
-                "transport": "stdio",
-            },
-        }
+def write_report(state: WriterState, report_path: Path) -> None:
+    lines = [
+        "# 多代理文章编写系统执行报告",
+        "",
+        f"## 任务主题：{state['topic']}",
+        "",
+        "## 1. 最终文章",
+        "",
+        state.get("final_article", "生成失败"),
+        "",
+        "## 2. 执行过程",
+        "",
+    ]
+
+    lines.extend([f"- {log}" for log in state.get("logs", [])])
+
+    lines.extend(
+        [
+            "",
+            "## 3. 异常处理日志",
+            "",
+        ]
     )
 
-    async with client.session("research_server") as research_session, client.session(
-        "style_server"
-    ) as style_session:
+    exception_logs = state.get("exception_logs", [])
+    if exception_logs:
+        lines.extend([f"- {log}" for log in exception_logs])
+    else:
+        lines.append("- 无")
 
-        print("已连接到 MCP 服务器：Research & Style")
+    lines.extend(
+        [
+            "",
+            "## 4. 代理产物",
+            "",
+            "### 研究结果",
+            str(state.get("research", {})),
+            "",
+            "### 审核结果",
+            str(state.get("review", {})),
+            "",
+        ]
+    )
 
-        # 加载所有工具
-        research_tools = await load_mcp_tools(research_session)
-        style_tools = await load_mcp_tools(style_session)
-        all_tools = research_tools + style_tools
+    report_path.write_text("\n".join(lines), encoding="utf-8")
 
-        # 创建并编译工作流
-        app = create_workflow(all_tools)
 
-        # 初始输入
-        if len(sys.argv) > 1:
-            user_input = sys.argv[1]
-        else:
-            print(
-                "提示：你可以通过命令行参数指定主题，例如：python -m multi_agent.main 'AI Agent 的未来'"
-            )
-            user_input = input("请输入文章主题（例如 'AI Agent 的未来'）：")
+def _strip_interrupt(result: dict) -> tuple[WriterState, list]:
+    interrupts = result.get("__interrupt__", [])
+    state = {k: v for k, v in result.items() if k != "__interrupt__"}
+    return state, interrupts
+
+
+def _prompt_user(interrupt_payload: dict) -> dict | None:
+    message = str(interrupt_payload.get("message", "需要补充信息"))
+    current_topic = str(interrupt_payload.get("topic", ""))
+    print(f"\n[System] {message}")
+    print(f"[System] 当前主题: {current_topic}")
+    try:
+        user_topic = input("请输入更具体的主题（留空保留原主题）: ").strip()
+    except EOFError:
+        return None
+    return {"topic": user_topic}
+
+
+def run(
+    topic: str,
+    thread_id: str,
+    checkpoint_db: str,
+) -> WriterState:
+    db_path = Path(checkpoint_db)
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    conn_string = str(db_path.resolve())
+    config = {"configurable": {"thread_id": thread_id}}
+    logger.debug("run start: topic=%s, thread_id=%s, checkpoint_db=%s", topic, thread_id, checkpoint_db)
+
+    with SqliteSaver.from_conn_string(conn_string) as checkpointer:
+        graph = build_graph(checkpointer=checkpointer)
+        pending_input = build_initial_state(topic=topic)
+
+        while True:
+            result = graph.invoke(pending_input, config=config)
+            state, interrupts = _strip_interrupt(result)
+            ## 没有中断，则返回执行结果
+            if not interrupts:
+                logger.debug("run finished without interrupt")
+                return state
+
+            interrupt_payload = interrupts[0].value
+            if not isinstance(interrupt_payload, dict):
+                interrupt_payload = {"message": str(interrupt_payload)}
+            #把中断信息展示给用户并获取回复
+            user_reply = _prompt_user(interrupt_payload)
+            if user_reply is None:
+                state["logs"].append("[System] 非交互模式，终止当前轮执行")
+                logger.debug("run stopped: non-interactive mode")
+                return state
+            #把用户回复包装为“恢复命令”，作为下一轮 graph.invoke 的输入，让图从中断点继续执行。
+            pending_input = Command(resume=user_reply)
+            logger.debug("run resumed from interrupt with user_reply")
+
+
+def print_result(final_state: WriterState) -> None:
+    print("\n========================")
+    print("Agent 协作记录")
+    print("========================")
+    for item in final_state["logs"]:
+        print(item)
+
+    print("\n========================")
+    print("最终文章")
+    print("========================")
+    print(final_state.get("final_article", ""))
+
+    print("\n========================")
+    print("异常日志")
+    print("========================")
+    if final_state["exception_logs"]:
+        for item in final_state["exception_logs"]:
+            print(item)
+    else:
+        print("无")
+
+
+def _run_once(
+    topic: str,
+    thread_id: str,
+    checkpoint_db: str,
+) -> WriterState:
+    final_state = run(
+        topic=topic,
+        thread_id=thread_id,
+        checkpoint_db=checkpoint_db,
+    )
+    print_result(final_state)
+    report_path = Path(__file__).with_name(f"report_{thread_id}.md")
+    write_report(final_state, report_path)
+    print(f"\n报告已写入: {report_path}")
+    return final_state
+
+
+def interactive_chat(
+    checkpoint_db: str,
+    base_thread_id: str,
+    initial_topic: Optional[str] = None,
+) -> None:
+    print("进入多轮交互模式。输入主题开始一轮写作。")
+    print("命令: /quit 退出")
+    round_id = 1
+
+    if initial_topic:
+        thread_id = f"{base_thread_id}-{round_id}"
+        print(f"\n[Round {round_id}] thread_id={thread_id}")
+        _run_once(
+            topic=initial_topic,
+            thread_id=thread_id,
+            checkpoint_db=checkpoint_db,
+        )
+        round_id += 1
+
+    while True:
+        try:
+            user_input = input("\nUser> ").strip()
+        except EOFError:
+            print("\n收到 EOF，结束会话。")
+            break
 
         if not user_input:
-            user_input = "AI Agent 的实现原理与应用"
+            continue
+        if user_input in {"/quit", "quit", "exit"}:
+            break
 
-        initial_state = {
-            "messages": [{"role": "user", "content": user_input}],
-            "research_results": "",
-            "draft": "",
-            "review_comments": "",
-            "final_article": "",
-            "retry_count": 0,
-            "current_step": "research",
-            "logs": [f"System: 开始任务 - {user_input}"],
-        }
+        thread_id = f"{base_thread_id}-{round_id}"
+        print(f"[Round {round_id}] thread_id={thread_id}")
+        _run_once(
+            topic=user_input,
+            thread_id=thread_id,
+            checkpoint_db=checkpoint_db,
+        )
+        round_id += 1
 
-        print("\n--- 开始执行多代理文章编写流程 ---\n")
 
-        final_result = initial_state
-        async for state_values in app.astream(
-            initial_state,
-            config={"configurable": {"thread_id": "article_1"}},
-            stream_mode="values",
-        ):
-            # 记录最新的完整状态
-            final_result = state_values
+def main() -> None:
+    setup_logging(SETTINGS.log_level)
+    logger.debug("app start with LOG_LEVEL=%s", SETTINGS.log_level)
+    default_topic = SETTINGS.default_topic
+    base_thread_id = SETTINGS.base_thread_id
+    checkpoint_db = SETTINGS.checkpoint_db
 
-            # 打印最新的日志（如果有）
-            if "logs" in state_values and state_values["logs"]:
-                print(state_values["logs"][-1])
-
-        print("\n--- 流程执行完毕 ---\n")
-        print("最终文章已生成，正在保存到 report.md...")
-
-        # 保存到 report.md
-        report_path = os.path.join(os.path.dirname(__file__), "report.md")
-        with open(report_path, "w", encoding="utf-8") as f:
-            f.write("# 多代理文章编写系统执行报告\n\n")
-            f.write(f"## 任务主题：{user_input}\n\n")
-            f.write("## 1. 最终文章定稿\n\n")
-            f.write(final_result.get("final_article", "生成失败"))
-            f.write("\n\n---\n\n")
-            f.write("## 2. 执行过程日志\n\n")
-            for log in final_result.get("logs", []):
-                f.write(f"- {log}\n")
-
-            f.write("\n## 3. 代理交互细节\n\n")
-            f.write(
-                f"### 研究阶段结果\n{final_result.get('research_results', 'N/A')}\n\n"
-            )
-            f.write(f"### 初稿内容\n{final_result.get('draft', 'N/A')}\n\n")
-            f.write(f"### 审核建议\n{final_result.get('review_comments', 'N/A')}\n\n")
-
-            if final_result.get("retry_count", 0) > 0:
-                f.write(
-                    f"\n## 4. 异常处理日志\n\n- 触发了重试机制，总重试次数：{final_result['retry_count']}\n"
-                )
+    interactive_chat(
+        checkpoint_db=checkpoint_db,
+        base_thread_id=base_thread_id,
+        initial_topic=default_topic,
+    )
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
