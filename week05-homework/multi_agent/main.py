@@ -54,6 +54,9 @@ def write_report(state: WriterState, report_path: Path) -> None:
             "### 审核结果",
             str(state.get("review", {})),
             "",
+            "### 审核历史",
+            str(state.get("review_history", [])),
+            "",
         ]
     )
 

@@ -23,6 +23,15 @@ logger = get_logger(__name__)
 
 retry_manager = RetryManager(fallback_agents={"review": fallback_review_agent})
 executor = AgentExecutor(retry_manager=retry_manager)
+REVIEW_STAGE_ORDER = ("initial", "recheck")
+
+
+def _normalize_review_stage(stage: str) -> str:
+    alias = {"peer": "initial", "editor": "initial", "final": "recheck"}
+    mapped = alias.get(stage, stage)
+    if mapped not in REVIEW_STAGE_ORDER:
+        return "initial"
+    return mapped
 
 
 def _route_from_start(state: WriterState) -> Literal["research", "write", "review", "polish"]:
@@ -52,15 +61,33 @@ def _route_after_polish(state: WriterState) -> Literal["wait_user", "end"]:
     logger.debug("edge polish -> END")
     return "end"
 
-def _route_after_review(state: WriterState) -> Literal["wait_user", "polish", "end"]:
+def _route_after_review(state: WriterState) -> Literal["wait_user", "write", "review", "polish"]:
     if state.get("need_user_input"):
         logger.debug("edge review -> wait_user")
         return "wait_user"
-    if state.get("used_fallback_review"):
-        logger.debug("edge review -> END (used_fallback_review=True)")
-        return "end"
-    logger.debug("edge review -> polish")
-    return "polish"
+
+    review = state.get("review", {})
+    if not review.get("passed", False):
+        logger.debug("edge review -> write (review not passed)")
+        return "write"
+
+    stage = _normalize_review_stage(str(state.get("review_stage", "initial")))
+    if stage == "recheck":
+        logger.debug("edge review -> polish (recheck stage passed)")
+        return "polish"
+
+    logger.debug("edge review -> review (advance to next stage)")
+    return "review"
+
+
+def _next_stage(stage: str) -> str:
+    try:
+        idx = REVIEW_STAGE_ORDER.index(_normalize_review_stage(stage))
+    except ValueError:
+        return "initial"
+    if idx >= len(REVIEW_STAGE_ORDER) - 1:
+        return "recheck"
+    return REVIEW_STAGE_ORDER[idx + 1]
 
 
 def research_node(state: WriterState) -> WriterState:
@@ -83,10 +110,66 @@ def review_node(state: WriterState) -> WriterState:
     logger.debug("node review start")
     state["logs"].append("[Review Agent] 审核内容")
     out = executor.execute_agent(review_agent, validate_review, state, "review")
+    if out.get("need_user_input"):
+        return out
+
+    review = out.get("review", {})
+    stage = _normalize_review_stage(str(review.get("stage", out.get("review_stage", "initial"))))
+    passed = bool(review.get("passed", False))
+    score = float(review.get("score", 0.0))
+    issues = review.get("issues", [])
+    requirements = review.get("requirements", [])
+    if not isinstance(issues, list):
+        issues = [str(issues)]
+    if not isinstance(requirements, list):
+        requirements = [str(requirements)]
+
+    review["stage"] = stage
+    review["issues"] = issues
+    review["requirements"] = requirements
+    review["score"] = score
+    review["passed"] = passed
+    out["review"] = review
+
+    if passed:
+        out["review_round"] = 0
+        out["review_requirements"] = []
+        next_stage = _next_stage(stage)
+        out["review_stage"] = next_stage
+        if stage == "recheck":
+            out["logs"].append("[review] 复审通过，进入润色")
+        else:
+            out["logs"].append(f"[review] {stage} 通过，进入 {next_stage}")
+    else:
+        next_round = int(out.get("review_round", 0)) + 1
+        out["review_round"] = next_round
+        out["review_stage"] = stage
+        out["review_requirements"] = requirements
+        out["logs"].append(f"[review] {stage} 未通过，进入第 {next_round} 轮改写")
+        if next_round >= int(out.get("max_review_round", 2)):
+            out["need_user_input"] = True
+            out["user_message"] = f"{stage} 阶段已达到最大返工轮次，请补充更具体信息后继续。"
+            out["pending_step"] = "write"
+            out["logs"].append("[review] 已达到返工上限，等待用户补充")
+
+    history = out.get("review_history", [])
+    history.append(
+        {
+            "stage": stage,
+            "round": int(out.get("review_round", 0)),
+            "score": score,
+            "passed": passed,
+            "issues": issues,
+            "requirements": requirements,
+        }
+    )
+    out["review_history"] = history
+
     logger.debug(
-        "node review end: score=%s, used_fallback_review=%s",
+        "node review end: score=%s, stage=%s, passed=%s",
         out.get("review", {}).get("score"),
-        out.get("used_fallback_review"),
+        out.get("review_stage"),
+        out.get("review", {}).get("passed"),
     )
     return out
 
@@ -146,7 +229,7 @@ def build_graph(checkpointer):
     builder.add_conditional_edges(
         "review",
         _route_after_review,
-        {"wait_user": "wait_user", "polish": "polish", "end": END},
+        {"wait_user": "wait_user", "write": "write", "review": "review", "polish": "polish"},
     )
     builder.add_conditional_edges(
         "polish",

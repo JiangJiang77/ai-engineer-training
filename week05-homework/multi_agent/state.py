@@ -32,6 +32,16 @@ class WriterState(TypedDict):
     pending_step: str
     # review 是否使用过 fallback
     used_fallback_review: bool
+    # 评审阶段: initial -> recheck
+    review_stage: str
+    # 当前阶段返工轮次
+    review_round: int
+    # 每个阶段最大返工轮次
+    max_review_round: int
+    # 审核历史
+    review_history: List[Dict[str, Any]]
+    # 当前待落实的修改要求
+    review_requirements: List[str]
 
 def build_initial_state(topic: str) -> WriterState:
     return {
@@ -50,4 +60,9 @@ def build_initial_state(topic: str) -> WriterState:
         "user_message": "",
         "pending_step": "",
         "used_fallback_review": False,
+        "review_stage": "initial",
+        "review_round": 0,
+        "max_review_round": 2,
+        "review_history": [],
+        "review_requirements": [],
     }
